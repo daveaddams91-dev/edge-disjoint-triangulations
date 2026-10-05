@@ -40,7 +40,9 @@ def main() -> None:
             row[f"count_k_{k}"] = edd.count_k_dissections(n, k) if n <= MAX_COUNT_N else ""
         with timer() as t:
             row["ilp_packing_number"] = edd.packing_ilp(n) if n <= 12 else ""
-            row["ilp_seconds"] = round(t.seconds, 3) if n <= 12 else ""
+        if n <= 12:
+            print(f"    ILP check for n={n}: {row['ilp_packing_number']} "
+                  f"in {t.seconds:.2f}s", flush=True)
         rows.append(row)
         print(
             f"n={n:2d} M={row['packing_number']} witness={row['witness_size']} "
@@ -59,7 +61,6 @@ def main() -> None:
         "num_resolutions",
         *[f"count_k_{k}" for k in range(9)],
         "ilp_packing_number",
-        "ilp_seconds",
     ]
     path = write_csv("small_cases.csv", fields, rows)
     print("wrote", path)

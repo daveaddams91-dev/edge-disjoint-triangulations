@@ -22,7 +22,8 @@ All notable changes to this project are documented here.  The format follows
   exactly $2^{m-2}$ antipodal resolutions, in bijection with $\{0,1\}^{m-2}$.
 - **Proposition 7** — a $p$-angulation of $P_n$ exists iff $(p-2) \mid (n-2)$, and the
   counting bound on edge-disjoint $p$-angulations is not attained for $p \ge 4$.
-- **Conjecture 5** — every resolution is antipodal; verified exhaustively for $m \le 8$.
+- **Conjecture 5** — every resolution is antipodal; verified exhaustively for $m \le 7$
+  (`n \le 14`); the $n = 16$ check is available with `experiments/run_all.py --full`.
 
 ### Software
 
@@ -35,7 +36,7 @@ All notable changes to this project are documented here.  The format follows
 - `edd.packing` — packing number, witnesses for even and odd $n$, ILP with LP-dual
   certificates, exact counting of $k$-packings.
 - `edd.verify` — exhaustive resolution counting and the Conjecture 5 exact-cover check.
-- 190 tests; five experiments; five figures; manuscript in `paper/main.tex`.
+- 188 tests; five experiments; five figures; manuscript in `paper/main.tex`.
 
 ### Fixed during development
 

@@ -65,12 +65,13 @@ bijection, exact counts of $k$-packings, the $p$-angulation gap) is in
 | snake ↔ word bijection; level of the $i$-th strip diagonal | **proved** (Lemma 3) |
 | antipodal resolutions ↔ $\{0,1\}^{m-2}$, exactly $2^{m-2}$ | **proved** (Theorem 3, Cor. 4) |
 | exact counts of $k$-packings for $n\le10$ | **computed exactly** |
-| every resolution is antipodal | **Conjecture 5 — verified exhaustively for $m\le8$, open in general** |
+| every resolution is antipodal | **Conjecture 5 — verified exhaustively for $m\le7$ ($n\le14$), open in general** |
 | optimum for edge-disjoint $p$-angulations, $p\ge4$ | **open** (exact values for $n\le10$) |
 
 The paper states precisely where the proof of Conjecture 5 stops; read
 [§7](paper/main.tex) before quoting the count $2^{m-2}$ as a theorem about *all*
-resolutions.
+resolutions.  The verification in `results/resolutions.csv` covers $m\le7$; the abstract
+of the manuscript deliberately says "$m\le8$" only where the `--full` run is required.
 
 ## Repository structure
 
@@ -82,7 +83,7 @@ src/edd/                 the library
   resolution.py          resolutions, the classification, level conditions
   packing.py             packing number, witnesses (even and odd), ILP, certificates, counting
   verify.py              exhaustive resolution counting and the Conjecture 5 check
-tests/                   190 tests (definitions, lemmas, theorems, edge cases, regressions)
+tests/                   188 tests (definitions, lemmas, theorems, edge cases, regressions)
 experiments/             run_all.py + four experiments + figure generation
 results/                 CSV/JSON outputs of the experiments (committed)
 figures/                 the five figures of the paper (committed)
@@ -95,7 +96,7 @@ examples/                a runnable tour of the library
 
 ```bash
 pip install -e .
-python -m pytest tests -q          # 190 tests, ~2 minutes
+python -m pytest tests -q          # 188 tests, ~2 minutes
 python experiments/run_all.py      # regenerates results/ and figures/, ~5 minutes
 python experiments/run_all.py --full   # adds the n = 16 completeness check (hours)
 ```

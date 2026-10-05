@@ -29,7 +29,7 @@ def main() -> None:
             report = edd.verify_completeness(n, brute_force=(n <= 10))
         d = report.to_dict()
         d.pop("witnesses")
-        d["seconds"] = round(t.seconds, 2)
+        seconds = round(t.seconds, 2)
         reports.append(d)
         row = {
             "n": n,
@@ -40,14 +40,13 @@ def main() -> None:
             "predicted_2_pow_m_minus_2": 2 ** (n // 2 - 2),
             "brute_force_count": d["brute_force_count"] if d["brute_force_checked"] else "",
             "conjecture_holds": d["conjecture_holds"],
-            "seconds": d["seconds"],
         }
         rows.append(row)
         print(
             f"n={n:2d}: snakes={d['num_snakes']:6d} "
             f"non-antipodal={d['num_non_antipodal_snakes']:6d} "
             f"antipodal resolutions={d['antipodal_resolutions']:4d} "
-            f"conjecture_holds={d['conjecture_holds']} ({d['seconds']}s)"
+            f"conjecture_holds={d['conjecture_holds']} ({seconds}s)"
         )
         if d["brute_force_checked"] and d["brute_force_count"] != d["antipodal_resolutions"]:
             print(f"  WARNING: brute force {d['brute_force_count']} != {d['antipodal_resolutions']}")
@@ -62,7 +61,6 @@ def main() -> None:
             "predicted_2_pow_m_minus_2",
             "brute_force_count",
             "conjecture_holds",
-            "seconds",
         ],
         rows,
     )

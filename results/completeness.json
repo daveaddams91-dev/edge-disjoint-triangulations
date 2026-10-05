@@ -10,7 +10,6 @@
       "num_extensions_found": 0,
       "num_non_antipodal_snakes": 6,
       "num_snakes": 12,
-      "seconds": 0.01,
       "total_resolutions": 2
     },
     {
@@ -23,7 +22,6 @@
       "num_extensions_found": 0,
       "num_non_antipodal_snakes": 40,
       "num_snakes": 64,
-      "seconds": 0.09,
       "total_resolutions": 4
     },
     {
@@ -36,7 +34,6 @@
       "num_extensions_found": 0,
       "num_non_antipodal_snakes": 220,
       "num_snakes": 320,
-      "seconds": 5.29,
       "total_resolutions": 8
     },
     {
@@ -49,7 +46,6 @@
       "num_extensions_found": 0,
       "num_non_antipodal_snakes": 1116,
       "num_snakes": 1536,
-      "seconds": 14.12,
       "total_resolutions": 16
     },
     {
@@ -62,7 +58,6 @@
       "num_extensions_found": 0,
       "num_non_antipodal_snakes": 5404,
       "num_snakes": 7168,
-      "seconds": 329.14,
       "total_resolutions": 32
     }
   ]

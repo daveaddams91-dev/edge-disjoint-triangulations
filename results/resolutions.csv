@@ -1,6 +1,6 @@
-n,m,num_snakes,num_non_antipodal_snakes,antipodal_resolutions,predicted_2_pow_m_minus_2,brute_force_count,conjecture_holds,seconds
-6,3,12,6,2,2,2,True,0.01
-8,4,64,40,4,4,4,True,0.09
-10,5,320,220,8,8,8,True,5.29
-12,6,1536,1116,16,16,,True,14.12
-14,7,7168,5404,32,32,,True,329.14
+n,m,num_snakes,num_non_antipodal_snakes,antipodal_resolutions,predicted_2_pow_m_minus_2,brute_force_count,conjecture_holds
+6,3,12,6,2,2,2,True
+8,4,64,40,4,4,4,True
+10,5,320,220,8,8,8,True
+12,6,1536,1116,16,16,,True
+14,7,7168,5404,32,32,,True

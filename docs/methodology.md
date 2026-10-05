@@ -58,7 +58,8 @@ It is solved by HiGHS through `scipy.optimize.milp`.
 
 Cost: 5 404 integer programs for $n=14$, about five minutes; the count of non-antipodal
 snakes grows like $\Theta(n2^{n-5})$, so the check grows by roughly a factor $4$ per two
-vertices.  $n=16$ is feasible but slow (hours).
+vertices.  $n=16$ (32 256 non-antipodal snakes) is feasible but slow (hours); it is
+available with `run_all.py --full` and is not included in the committed tables.
 
 ## 4. Complexity of the algorithms
 

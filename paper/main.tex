@@ -52,9 +52,9 @@ from one common word and based at the $m$ antipodal pairs $\{u,u+m\}$ partition 
 diagonals if and only if the word is anti-palindromic, $w_i\ne w_{2m-3-i}$.  Consequently
 the antipodal resolutions of $P_{2m}$ are in bijection with $\{0,1\}^{m-2}$: there are
 exactly $2^{m-2}$ of them.  We conjecture that every resolution is antipodal; this is
-verified exhaustively for $m\le 8$ by exact-cover integer programming.  A generalisation to
+verified exhaustively for $m\le 7$ by exact-cover integer programming.  A generalisation to
 $p$-angulations shows that the counting bound is sharp only for triangles.  Everything is
-implemented, tested (190 tests) and verified computationally in the accompanying software.
+implemented, tested (188 tests) and verified computationally in the accompanying software.
 \end{abstract}
 
 \section{Introduction}
@@ -115,7 +115,7 @@ $(p-2)\mid(n-2)$, and the naive counting bound on edge-disjoint $p$-angulations 
 \emph{not} attained for $p\ge4$ (e.g.\ $4$ instead of $10$ for $P_8$,
 \emph{Proposition~\ref{prop:p-angulations}}).
 \item[\textbf{C1.}] \emph{Conjecture.} Every resolution of $P_{2m}$ is antipodal.  Verified
-exhaustively for $m\le 8$; see \cref{sec:experiments}.
+exhaustively for $m\le 7$; see \cref{sec:experiments}.
 \end{itemize}
 
 \paragraph{What is proved where.}
@@ -746,8 +746,9 @@ antipodal resolutions completely: they are in bijection with $\{$binary words of
 $m-2\}$, so there are exactly $2^{m-2}$ of them for $P_{2m}$.  The classification rests on a
 new and useful encoding of snakes as lattice paths, which also yields the count
 $n\,2^{n-5}$ of snakes and makes the level structure of a snake visible.  Exhaustive
-computation verifies that the classification is complete for $m\le8$; we conjecture the
-remaining case and locate precisely the step of the proof that fails.
+computation verifies that the classification is complete for $m\le7$ (polygons up to
+$P_{14}$); we conjecture the remaining case and locate precisely the step of the proof that
+fails.
 
 \begin{thebibliography}{9}
 \bibitem{huangfu2018}
@@ -794,10 +795,12 @@ For $n=8$ the four words are $\Li\Li\Ri\Ri,\ \Li\Ri\Li\Ri,\ \Ri\Li\Ri\Li,\
 
 \begin{verbatim}
 pip install -e .
-python -m pytest tests -q          # 190 tests
+python -m pytest tests -q          # 188 tests
 python experiments/run_all.py      # regenerates results/ and figures/
 \end{verbatim}
 The only numerical ingredient is HiGHS (through \textsc{scipy}); every other computation is
-exact integer arithmetic.
+exact integer arithmetic.  The completeness check for $m=8$ is available with
+\texttt{python experiments/run\_all.py --full} but was not run for the tables in this
+repository, which stop at $m=7$.
 
 \end{document}
