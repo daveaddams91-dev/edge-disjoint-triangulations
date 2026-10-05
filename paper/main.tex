@@ -705,6 +705,17 @@ resolution, for every $m\le7$.  The column ``resolutions'' is $2^{m-2}$ by
 \label{tab:conj}
 \end{table}
 
+\paragraph{Falsification.}  A separate suite
+(\texttt{falsification/run\_falsification.py}, 43 checks, all passing) is written from the
+point of view of an adversary: it asks the ILP for a strictly larger packing (Theorem 1),
+tests \emph{every} word --- including those with the wrong number of $\Ri$ letters --- against a
+direct test of the covering condition (Theorem 3), searches over all words and all admissible
+ear-pairings for an equi-eared but non-antipodal resolution (Corollary 4(i)), enumerates
+\emph{all} maximal packings rather than only the constructed ones (Proposition 2), and checks
+the degenerate inputs $n=4,5$.  It also documents the boundary of Proposition 2: for odd $n$
+maximal packings do contain members that are not snakes, so the rigidity of Proposition 2 is
+specific to even $n$.
+
 \paragraph{Figures.}  \cref{fig:canonical} shows the canonical resolution of $P_{10}$;
 \cref{fig:words} shows the anti-palindromic words; further figures (produced by
 \texttt{experiments/make\_figures.py}) plot the number of resolutions against $2^{m-2}$,
@@ -835,8 +846,9 @@ For $n=8$ the four words are $\Li\Li\Ri\Ri,\ \Li\Ri\Li\Ri,\ \Ri\Li\Ri\Li,\
 
 \begin{verbatim}
 pip install -e .
-python -m pytest tests -q          # 188 tests
-python experiments/run_all.py      # regenerates results/ and figures/
+python -m pytest tests -q                    # 188 tests
+python falsification/run_falsification.py    # 43 adversarial checks
+python experiments/run_all.py                # regenerates results/ and figures/
 \end{verbatim}
 The only numerical ingredient is HiGHS (through \textsc{scipy}); every other computation is
 exact integer arithmetic.  The completeness check for $m=8$ is available with

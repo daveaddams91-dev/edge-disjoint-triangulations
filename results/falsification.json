@@ -1,0 +1,351 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "check": "ilp_optimum_equals_floor(n/2)(n=4)",
+      "detail": {
+        "bound": 2,
+        "ilp_optimum": 2
+      },
+      "passed": true
+    },
+    {
+      "check": "ilp_optimum_equals_floor(n/2)(n=5)",
+      "detail": {
+        "bound": 2,
+        "ilp_optimum": 2
+      },
+      "passed": true
+    },
+    {
+      "check": "ilp_optimum_equals_floor(n/2)(n=6)",
+      "detail": {
+        "bound": 3,
+        "ilp_optimum": 3
+      },
+      "passed": true
+    },
+    {
+      "check": "ilp_optimum_equals_floor(n/2)(n=7)",
+      "detail": {
+        "bound": 3,
+        "ilp_optimum": 3
+      },
+      "passed": true
+    },
+    {
+      "check": "ilp_optimum_equals_floor(n/2)(n=8)",
+      "detail": {
+        "bound": 4,
+        "ilp_optimum": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "ilp_optimum_equals_floor(n/2)(n=9)",
+      "detail": {
+        "bound": 4,
+        "ilp_optimum": 4
+      },
+      "passed": true
+    },
+    {
+      "check": "ilp_optimum_equals_floor(n/2)(n=10)",
+      "detail": {
+        "bound": 5,
+        "ilp_optimum": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "square_has_two_triangulations_and_one_resolution",
+      "detail": {
+        "resolutions": 1,
+        "triangulations": 2
+      },
+      "passed": true
+    },
+    {
+      "check": "empty_word_gives_the_square_resolution",
+      "detail": {},
+      "passed": true
+    },
+    {
+      "check": "degenerate_words_never_give_resolutions",
+      "detail": {
+        "bad": []
+      },
+      "passed": true
+    },
+    {
+      "check": "explicit_witnesses_are_valid",
+      "detail": {
+        "n_with_failure": []
+      },
+      "passed": true
+    },
+    {
+      "check": "strip_formula_and_level_claims",
+      "detail": {
+        "checked": 1146,
+        "counterexamples": []
+      },
+      "passed": true
+    },
+    {
+      "check": "criterion_necessary_and_sufficient(n=4)",
+      "detail": {
+        "mismatches": [],
+        "words_tested": 1
+      },
+      "passed": true
+    },
+    {
+      "check": "criterion_necessary_and_sufficient(n=6)",
+      "detail": {
+        "mismatches": [],
+        "words_tested": 2
+      },
+      "passed": true
+    },
+    {
+      "check": "criterion_necessary_and_sufficient(n=8)",
+      "detail": {
+        "mismatches": [],
+        "words_tested": 6
+      },
+      "passed": true
+    },
+    {
+      "check": "criterion_necessary_and_sufficient(n=10)",
+      "detail": {
+        "mismatches": [],
+        "words_tested": 20
+      },
+      "passed": true
+    },
+    {
+      "check": "snake_iff_two_ears(n=5)",
+      "detail": {
+        "counterexamples": [],
+        "triangulations": 5
+      },
+      "passed": true
+    },
+    {
+      "check": "snake_iff_two_ears(n=6)",
+      "detail": {
+        "counterexamples": [],
+        "triangulations": 14
+      },
+      "passed": true
+    },
+    {
+      "check": "snake_iff_two_ears(n=7)",
+      "detail": {
+        "counterexamples": [],
+        "triangulations": 42
+      },
+      "passed": true
+    },
+    {
+      "check": "snake_iff_two_ears(n=8)",
+      "detail": {
+        "counterexamples": [],
+        "triangulations": 132
+      },
+      "passed": true
+    },
+    {
+      "check": "snake_iff_two_ears(n=9)",
+      "detail": {
+        "counterexamples": [],
+        "triangulations": 429
+      },
+      "passed": true
+    },
+    {
+      "check": "snake_iff_two_ears(n=10)",
+      "detail": {
+        "counterexamples": [],
+        "triangulations": 1430
+      },
+      "passed": true
+    },
+    {
+      "check": "ear_distance_two_is_a_fan(n=6)",
+      "detail": {
+        "counterexamples": []
+      },
+      "passed": true
+    },
+    {
+      "check": "ear_distance_two_is_a_fan(n=7)",
+      "detail": {
+        "counterexamples": []
+      },
+      "passed": true
+    },
+    {
+      "check": "ear_distance_two_is_a_fan(n=8)",
+      "detail": {
+        "counterexamples": []
+      },
+      "passed": true
+    },
+    {
+      "check": "ear_distance_two_is_a_fan(n=9)",
+      "detail": {
+        "counterexamples": []
+      },
+      "passed": true
+    },
+    {
+      "check": "ear_distance_two_is_a_fan(n=10)",
+      "detail": {
+        "counterexamples": []
+      },
+      "passed": true
+    },
+    {
+      "check": "maximal_packs_are_resolutions(n=4)",
+      "detail": {
+        "families_examined": 1,
+        "problems": []
+      },
+      "passed": true
+    },
+    {
+      "check": "maximal_packs_are_resolutions(n=5)",
+      "detail": {
+        "families_examined": 5,
+        "problems": []
+      },
+      "passed": true
+    },
+    {
+      "check": "maximal_packs_are_resolutions(n=6)",
+      "detail": {
+        "families_examined": 2,
+        "problems": []
+      },
+      "passed": true
+    },
+    {
+      "check": "maximal_packs_are_resolutions(n=7)",
+      "detail": {
+        "families_examined": 77,
+        "problems": []
+      },
+      "passed": true
+    },
+    {
+      "check": "maximal_packs_are_resolutions(n=8)",
+      "detail": {
+        "families_examined": 4,
+        "problems": []
+      },
+      "passed": true
+    },
+    {
+      "check": "maximal_packs_are_resolutions(n=9)",
+      "detail": {
+        "families_examined": 2133,
+        "problems": []
+      },
+      "passed": true
+    },
+    {
+      "check": "maximal_packs_are_resolutions(n=10)",
+      "detail": {
+        "families_examined": 8,
+        "problems": []
+      },
+      "passed": true
+    },
+    {
+      "check": "common_word_resolutions_are_antipodal(n=4)",
+      "detail": {
+        "counts_by_num_R": {
+          "0": 1
+        },
+        "non_antipodal_examples": {}
+      },
+      "passed": true
+    },
+    {
+      "check": "common_word_resolutions_are_antipodal(n=6)",
+      "detail": {
+        "counts_by_num_R": {
+          "1": 2
+        },
+        "non_antipodal_examples": {}
+      },
+      "passed": true
+    },
+    {
+      "check": "common_word_resolutions_are_antipodal(n=8)",
+      "detail": {
+        "counts_by_num_R": {
+          "2": 4
+        },
+        "non_antipodal_examples": {}
+      },
+      "passed": true
+    },
+    {
+      "check": "common_word_resolutions_are_antipodal(n=10)",
+      "detail": {
+        "counts_by_num_R": {
+          "3": 8
+        },
+        "non_antipodal_examples": {}
+      },
+      "passed": true
+    },
+    {
+      "check": "odd_n_maximal_packs_contain_non_snakes(n=7)",
+      "detail": {
+        "families": 77,
+        "note": "n = 5 is excluded: every triangulation of a pentagon is a fan, hence a snake, so the rigidity does not fail there; n = 11 is excluded because enumerating all maximal packings is too slow",
+        "with_a_non_snake_member": 28
+      },
+      "passed": true
+    },
+    {
+      "check": "odd_n_maximal_packs_contain_non_snakes(n=9)",
+      "detail": {
+        "families": 2133,
+        "note": "n = 5 is excluded: every triangulation of a pentagon is a fan, hence a snake, so the rigidity does not fail there; n = 11 is excluded because enumerating all maximal packings is too slow",
+        "with_a_non_snake_member": 1404
+      },
+      "passed": true
+    },
+    {
+      "check": "some_snakes_fit_and_some_do_not(n=6)",
+      "detail": {
+        "extend_to_a_resolution": 6,
+        "snakes": 12
+      },
+      "passed": true
+    },
+    {
+      "check": "some_snakes_fit_and_some_do_not(n=8)",
+      "detail": {
+        "extend_to_a_resolution": 16,
+        "snakes": 64
+      },
+      "passed": true
+    },
+    {
+      "check": "some_snakes_fit_and_some_do_not(n=10)",
+      "detail": {
+        "extend_to_a_resolution": 40,
+        "snakes": 320
+      },
+      "passed": true
+    }
+  ],
+  "failed": [],
+  "n_max": 10
+}

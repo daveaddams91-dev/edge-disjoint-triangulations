@@ -13,6 +13,7 @@ seeds need to be set.  Files written:
     results/resolutions.csv        resolution counts and the Conjecture C1 check (n <= 14)
     results/completeness.json      the same, machine readable
     results/p_angulations.csv      p-angulations: counts, counting bound, ILP optimum
+    results/falsification.json     the falsification suite (attempts to refute every theorem)
     figures/fig1..fig5*.png        the five figures of the paper
 """
 
@@ -43,6 +44,7 @@ def main() -> None:
     run("exp_p_angulations.py")
     run("exp_resolutions.py", n_max_res)
     run("make_figures.py")
+    run("..\\falsification\\run_falsification.py", "10")
     print(f"\nall experiments finished in {time.perf_counter() - t0:.1f}s")
 
 

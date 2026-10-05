@@ -87,6 +87,7 @@ src/edd/                 the library
   packing.py             packing number, witnesses (even and odd), ILP, certificates, counting
   verify.py              exhaustive resolution counting and the Conjecture 5 check
 tests/                   188 tests (definitions, lemmas, theorems, edge cases, regressions)
+falsification/            a suite that actively tries to refute every theorem
 experiments/             run_all.py + four experiments + figure generation
 results/                 CSV/JSON outputs of the experiments (committed)
 figures/                 the five figures of the paper (committed)
@@ -99,10 +100,19 @@ examples/                a runnable tour of the library
 
 ```bash
 pip install -e .
-python -m pytest tests -q          # 188 tests, ~2 minutes
-python experiments/run_all.py      # regenerates results/ and figures/, ~5 minutes
-python experiments/run_all.py --full   # adds the n = 16 completeness check (hours)
+python -m pytest tests -q                    # 188 tests, ~2 minutes
+python falsification/run_falsification.py     # 43 adversarial checks, ~5 minutes
+python experiments/run_all.py                # regenerates results/ and figures/, ~10 minutes
+python experiments/run_all.py --full         # adds the n = 16 completeness check (hours)
 ```
+
+`falsification/run_falsification.py` is the adversarial part of the repository: it tries to
+refute Theorem 1 (by asking the ILP for a larger packing), Theorem 3 (by testing *all* words,
+including those with the wrong number of `R`s), Corollary 4(i) (by searching over all words
+and all admissible ear-pairings), Lemma 1, Proposition 2 (on *all* maximal packings), the
+strip formula, and the degenerate cases n = 4, 5. It also documents the boundary of
+Proposition 2: for odd n, maximal packings do contain members that are not snakes. All 43
+checks pass; the output is `results/falsification.json`.
 
 Everything is deterministic: no random numbers are used anywhere, so no seeds are needed.
 The only numerical dependency is HiGHS (through SciPy); every other computation is exact

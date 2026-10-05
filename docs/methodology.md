@@ -63,6 +63,29 @@ snakes grows like $\Theta(n2^{n-5})$, so the check grows by roughly a factor $4$
 vertices.  $n=16$ (32 256 non-antipodal snakes) is feasible but slow (hours); it is
 available with `run_all.py --full` and is not included in the committed tables.
 
+## 3b. The falsification suite
+
+`falsification/run_falsification.py` (43 checks, all passing, output in
+`results/falsification.json`) is written from the point of view of an adversary:
+
+| check | what it tries to break |
+|---|---|
+| `ilp_optimum_equals_floor(n/2)` | Theorem 1: asks the ILP for a strictly larger packing |
+| `criterion_necessary_and_sufficient` | Theorem 3: tests *all* words, including those with the wrong number of `R`s, and compares the closed-form criterion with a direct test of the covering condition |
+| `common_word_resolutions_are_antipodal` | Corollary 4(i): searches over all words and all admissible ear-pairings for an equi-eared but non-antipodal resolution |
+| `maximal_packs_are_resolutions` | Proposition 2: enumerates *all* maximal packings, not only the constructed ones |
+| `snake_iff_two_ears` | Lemma 1 |
+| `ear_distance_two_is_a_fan` | the lemma used in the `m = 3` case of Conjecture 5 |
+| `strip_formula_and_level_claims` | formula (1) and the level claims, for every word and endpoint |
+| `some_snakes_fit_and_some_do_not` | non-vacuity of Proposition 2: not every snake belongs to a resolution |
+| `odd_n_maximal_packs_contain_non_snakes` | the boundary of Proposition 2: the rigidity genuinely fails for odd `n` (it does not for `n = 5`, where every triangulation is a fan) |
+| `square_...`, `empty_word_...`, `degenerate_words_...`, `explicit_witnesses_are_valid` | degenerate inputs |
+
+One check in an earlier draft of this suite was *wrong* rather than the library: we had
+asserted that no snake with a high-degree vertex extends to a resolution, but the canonical
+resolution contains fans, so such snakes do extend.  The suite now asserts only statements
+that are actually true, and the two informative "boundary" checks were added in its place.
+
 ## 4. Complexity of the algorithms
 
 | algorithm | time | space | note |
