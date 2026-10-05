@@ -91,7 +91,7 @@ falsification/            a suite that actively tries to refute every theorem
 experiments/             run_all.py + four experiments + figure generation
 results/                 CSV/JSON outputs of the experiments (committed)
 figures/                 the five figures of the paper (committed)
-paper/main.tex           the manuscript
+paper/main.tex           the manuscript (paper/main.pdf is a compiled snapshot)
 docs/                    mathematical notes, methodology, literature search log
 examples/                a runnable tour of the library
 ```

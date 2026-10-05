@@ -78,9 +78,9 @@ reproduces every table in `results/` and every figure byte for byte (verified by
 regenerating). The only numerical dependency is HiGHS via SciPy; all other computation is
 exact integer arithmetic.
 
-The manuscript is `paper/main.tex`. No LaTeX toolchain was available in the authoring
-environment, so no PDF is attached; build it with `pdflatex paper/main.tex` (twice) — the
-figures are included from `figures/`.
+The manuscript is `paper/main.tex`, and a compiled `paper/main.pdf` is included (it builds
+cleanly with `tectonic -X compile paper/main.tex` or with two `pdflatex` runs; the figures
+are included from `figures/`).
 
 ## Known limitations
 

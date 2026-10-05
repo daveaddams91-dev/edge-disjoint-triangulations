@@ -9,12 +9,11 @@ dist/
 venv/
 results/tmp/
 results/*.log
-paper/build/
 paper/*.aux
 paper/*.log
 paper/*.out
 paper/*.bbl
 paper/*.blg
-paper/*.pdf
+paper/build/
 .DS_Store
 Thumbs.db

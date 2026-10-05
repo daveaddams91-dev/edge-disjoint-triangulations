@@ -10,6 +10,11 @@
 \usepackage{microtype}
 \usepackage{xcolor}
 
+% tolerate narrow measure: the paper uses many inline formulas
+\setlength{\emergencystretch}{3em}
+\hbadness=10000
+\vbadness=10000
+
 \hypersetup{colorlinks=true,linkcolor=blue!40!black,citecolor=blue!40!black,
             urlcolor=blue!40!black,pdftitle={Edge-disjoint triangulations of convex polygons}}
 
@@ -24,9 +29,9 @@
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{conjecture}[theorem]{Conjecture}
 
-\newcommand{\P}{\ensuremath{P}}
-\newcommand{\D}{\ensuremath{\mathcal{D}}}
-\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\poly}{\ensuremath{P}}
+\newcommand{\diags}{\ensuremath{\mathcal{D}}}
+\newcommand{\Zd}{\ensuremath{\mathbb{Z}}}
 \newcommand{\Li}{\mathrm{L}}
 \newcommand{\Ri}{\mathrm{R}}
 
@@ -84,7 +89,7 @@ argument on the short diagonals (\cref{thm:packing-number}); sharpness is explic
 
 \paragraph{Why the even case is the interesting one.}
 If $n=2m$ then a family of $m$ pairwise edge-disjoint triangulations uses
-$m(2m-3)=|\D_{2m}|$ diagonals, i.e.\ \emph{every} diagonal; and since each triangulation
+$m(2m-3)=|\diags_{2m}|$ diagonals, i.e.\ \emph{every} diagonal; and since each triangulation
 must use at least two of the $2m$ short diagonals $(v-1,v+1)$, each of them uses exactly
 two, hence has exactly two ears and no interior triangle.  So for even $n$ an extremal
 family is forced to be a partition of all diagonals into snakes (\cref{prop:structure}).
@@ -95,7 +100,7 @@ This is a strong rigidity statement, and it is what makes a classification possi
 \item[\textbf{T1.}] $\ M(n)=\lfloor n/2\rfloor$ for all $n\ge 4$ (\cref{thm:packing-number}),
 with explicit optimal families for even and odd $n$.
 \item[\textbf{T2.}] For $n=2m$, every $m$-packing is a \emph{resolution}: a partition of
-$\D_{2m}$ into $m$ snakes whose $m$ ear pairs partition the vertex set
+$\diags_{2m}$ into $m$ snakes whose $m$ ear pairs partition the vertex set
 (\cref{prop:structure}).
 \item[\textbf{L3.}] A bijection between snakes of $P_n$ with prescribed endpoints and
 words $w\in\{\Li,\Ri\}^{n-4}$, together with two structural consequences: the endpoints
@@ -168,7 +173,7 @@ The \emph{level} of a diagonal $d=(i,j)$ ($i<j$) is
 $\operatorname{lev}(d)=\min(j-i,\,n-(j-i))$, and its $i$-th and $j$-th endpoints are its
 \emph{near} and \emph{far} endpoint resp.\ for $i<j$.  The $n$ diagonals of level $2$,
 \[
-  s_v=(v-1,v+1)\qquad (v\in\Z_n),
+  s_v=(v-1,v+1)\qquad (v\in\Zd_n),
 \]
 are the \emph{short diagonals}; $s_v$ \emph{cuts off the vertex $v$}, which we call its ear
 vertex.
@@ -206,7 +211,7 @@ no vertex of degree $3$, i.e.\ iff the tree is a path, i.e.\ iff it has exactly 
 \begin{definition}
 A family of triangulations is \emph{edge-disjoint} if no two members share a diagonal.
 A \emph{$k$-packing of $P_n$} is an edge-disjoint family of $k$ triangulations.
-A \emph{resolution of $P_{2m}$} is a family of $m$ snakes that partitions $\D_{2m}$, the set
+A \emph{resolution of $P_{2m}$} is a family of $m$ snakes that partitions $\diags_{2m}$, the set
 of all diagonals of $P_{2m}$.  A snake is \emph{antipodal} if its two ear vertices are at
 cyclic distance $m$.  A resolution is \emph{antipodal} if all of its snakes are.
 \end{definition}
@@ -228,11 +233,11 @@ triangulations of $P_n$.  By \cref{lem:ears} each $T\in\mathcal{T}$ contains at 
 short diagonals.  Distinct members of $\mathcal{T}$ use disjoint sets of short diagonals, and
 there are $n$ of them, so $2k\le n$, i.e.\ $k\le\lfloor n/2\rfloor$.
 
-\emph{Sharpness, $n=2m$.}  Let $w_0=\Ri^{m-2}\Li^{m-2}$ and, for $u\in\Z_m$, let $T_u$ be
+\emph{Sharpness, $n=2m$.}  Let $w_0=\Ri^{m-2}\Li^{m-2}$ and, for $u\in\Zd_m$, let $T_u$ be
 the snake of $P_{2m}$ whose endpoints are $u$ and $u+m$ and whose word is $w_0$ (it exists
 and is unique by \cref{lem:strip}(iii)).  The word $w_0$ satisfies
 $w_{0,i}\ne w_{0,\,2m-3-i}$ for $1\le i\le m-2$, so \cref{thm:classification} gives that
-$\{T_u\}_{u\in\Z_m}$ is a resolution of $P_{2m}$, in particular an $m$-packing.
+$\{T_u\}_{u\in\Zd_m}$ is a resolution of $P_{2m}$, in particular an $m$-packing.
 
 \emph{Sharpness, $n=2m-1\ge5$.}  Take the same resolution of $P_{2m}$ and delete the vertex
 $2m-1$, obtaining $P_{2m-1}$ (the labelling of the remaining vertices is unchanged).  For a
@@ -326,7 +331,7 @@ $\operatorname{lev}(F_i)=\min(i+2,n-i-2)$, which does not involve the word.
 
 \emph{(iii)} Immediate from the bijection: for fixed $u$ and $b=v-u-2$ there are
 $\binom{n-4}{b}$ snakes.  Counting pairs $(T,\text{chosen ear vertex})$ we get
-$\sum_{u\in\Z_n}\sum_{b=0}^{n-4}\binom{n-4}{b}=n\,2^{n-4}$, and since a snake has exactly two
+$\sum_{u\in\Zd_n}\sum_{b=0}^{n-4}\binom{n-4}{b}=n\,2^{n-4}$, and since a snake has exactly two
 ear vertices for $n\ge5$, the number of snakes is $n\,2^{n-5}$.
 \end{proof}
 
@@ -347,10 +352,10 @@ disjoint sets of the $n$ available short diagonals.
 
 \begin{theorem}[\label{thm:classification}]
 Let $n=2m\ge6$ and let $w\in\{\Li,\Ri\}^{2m-4}$ have exactly $m-2$ letters $\Ri$.  For
-$u\in\Z_m$ let $T_u$ be the snake of $P_{2m}$ with endpoints $u$ and $u+m$ and with word
+$u\in\Zd_m$ let $T_u$ be the snake of $P_{2m}$ with endpoints $u$ and $u+m$ and with word
 $w$ (which exists and is unique by \cref{lem:strip}).  Then
 \[
-  \{T_u : u\in\Z_m\}\ \text{ is a resolution of } P_{2m}
+  \{T_u : u\in\Zd_m\}\ \text{ is a resolution of } P_{2m}
   \quad\Longleftrightarrow\quad
   w_i\ne w_{2m-3-i}\ \text{ for all } 1\le i\le m-2 . \tag{2}
 \]
@@ -361,7 +366,7 @@ $w$ (which exists and is unique by \cref{lem:strip}).  Then
 word} (each read from one of its ear vertices) is antipodal, and is of the form of
 \cref{thm:classification}.
 \item[$(ii)$] For $m\ge2$ there are exactly $2^{m-2}$ such resolutions, and
-$w\mapsto\{T_u\}_{u\in\Z_m}$ is a bijection from the set of anti-palindromic words
+$w\mapsto\{T_u\}_{u\in\Zd_m}$ is a bijection from the set of anti-palindromic words
 $w\in\{\Li,\Ri\}^{2m-4}$ onto them.  Equivalently they are in bijection with
 $\{0,1\}^{m-2}$, the free first half of the word.
 \end{enumerate}
@@ -370,17 +375,17 @@ $\{0,1\}^{m-2}$, the free first half of the word.
 \begin{proof}
 (i) Let $\mathcal{T}$ be a resolution all of whose snakes follow the common word $w$, and put
 $b=\#\Ri(w)$ and $k=b+2$.  By \cref{lem:strip}(i) every ear pair of $\mathcal{T}$ then has
-cyclic length $k$, and by \cref{prop:structure}(iii) these $m$ pairs partition $\Z_{2m}$.
+cyclic length $k$, and by \cref{prop:structure}(iii) these $m$ pairs partition $\Zd_{2m}$.
 Write $\ell_i$ for the number of $\Li$'s among the first $i$ letters of $w$ and
 $\widehat\rho_i$ for the number of $\Ri$'s among the last $i$; both are independent of the
 snake because $w$ is common.  For $i\in\{0,\dots,m-3\}$ with $j=i+2\le m-1$, the computation
 of \cref{sec:proofs} (with $u$ ranging over the $m$ arc-start vertices rather than over
-$\Z_m$) shows that the $2m$ starts of the diagonals at level $j$ are
+$\Zd_m$) shows that the $2m$ starts of the diagonals at level $j$ are
 \[
   A=\{u-1-\ell_i\},\qquad B=\{u+k-1-\widehat\rho_i\}=A+\big(k-\widehat\rho_i+\ell_i\big).
 \]
-Since $\mathcal{T}$ is a resolution, $A\sqcup B=\Z_{2m}$.  Now $A$ is a block of $m$
-consecutive residues, and the complement of such a block in $\Z_{2m}$ is its translate by
+Since $\mathcal{T}$ is a resolution, $A\sqcup B=\Zd_{2m}$.  Now $A$ is a block of $m$
+consecutive residues, and the complement of such a block in $\Zd_{2m}$ is its translate by
 $m$; hence
 $k-\widehat\rho_i+\ell_i\equiv m\pmod{2m}$.  Comparing this with the conclusion of
 \cref{sec:proofs} in the ($\Rightarrow$) direction, namely
@@ -417,20 +422,20 @@ vertex $u$, the word is recovered by \cref{lem:strip}'s construction, which is i
 
 \begin{proposition}[\label{prop:structure}]
 Let $n=2m\ge6$.  If $\mathcal{T}$ is an $m$-packing of $P_{2m}$ then:
-\begin{enumerate}[(i)] $\bigcup_{T\in\mathcal{T}}T=\D_{2m}$, i.e.\ $\mathcal{T}$ is a
+\begin{enumerate}[(i)] $\bigcup_{T\in\mathcal{T}}T=\diags_{2m}$, i.e.\ $\mathcal{T}$ is a
 resolution;
 \item every $T\in\mathcal{T}$ is a snake with exactly two ears;
-\item the $m$ pairs of ear vertices of $\mathcal{T}$ partition $\Z_{2m}$.
+\item the $m$ pairs of ear vertices of $\mathcal{T}$ partition $\Zd_{2m}$.
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-(i) $|\D_{2m}|=m(2m-3)$ and each member uses $2m-3$ diagonals, so $m$ edge-disjoint members
+(i) $|\diags_{2m}|=m(2m-3)$ and each member uses $2m-3$ diagonals, so $m$ edge-disjoint members
 use all of them.  (ii) Each member uses at least two short diagonals, the $m$ members use at
 least $2m$, and there are exactly $2m$ short diagonals; hence each uses exactly two, so by
 \cref{lem:ears} it has exactly two ears and is a snake.  (iii) Each of the $2m$ short
 diagonals is used exactly once, and $s_v$ is used by the snake having $v$ as an ear
-vertex, so the $m$ ear pairs are disjoint and cover $\Z_{2m}$.
+vertex, so the $m$ ear pairs are disjoint and cover $\Zd_{2m}$.
 \end{proof}
 
 \begin{remark}
@@ -447,8 +452,8 @@ $L_i=L_i(w)$ and $R_i=R_i(w)$, and we use the following notation.
 
 \medskip
 \noindent\textit{Levels.}  For $2\le j\le m-1$ there are exactly $2m$ diagonals of level
-$j$, namely $\{x,x+j\}$ for $x\in\Z_{2m}$; for $j=m$ there are $m$ of them, the
-\emph{diameters} $\{x,x+m\}$ for $x\in\Z_m$.  By \cref{lem:strip}(ii) the strip diagonal
+$j$, namely $\{x,x+j\}$ for $x\in\Zd_{2m}$; for $j=m$ there are $m$ of them, the
+\emph{diameters} $\{x,x+m\}$ for $x\in\Zd_m$.  By \cref{lem:strip}(ii) the strip diagonal
 $F_i$ of $T_u$ has level $\min(i+2,n-i-2)$, so each snake contains exactly two diagonals of
 each level $j<m$ (at strip positions $i=j-2$ and $i=n-2-j$) and exactly one diameter (at
 strip position $i=m-2$).
@@ -498,10 +503,10 @@ Hence
 \emph{($\Leftarrow$.)}  Assume (CP).  By (3), $\widehat\rho_i=L_i$ for every
 $i\le m-3$, so (6) gives $y_u=\alpha_u+m$.  The sets
 \[
-  A=\{\alpha_u:u\in\Z_m\}=\{u-1-c:0\le u<m\},\qquad
-  B=\{y_u:u\in\Z_m\}=\{u+m-1-c:0\le u<m\}
+  A=\{\alpha_u:u\in\Zd_m\}=\{u-1-c:0\le u<m\},\qquad
+  B=\{y_u:u\in\Zd_m\}=\{u+m-1-c:0\le u<m\}
 \]
-are therefore two disjoint intervals of $\Z_{2m}$ with $A\sqcup B=\Z_{2m}$: the $2m$ diagonals
+are therefore two disjoint intervals of $\Zd_{2m}$ with $A\sqcup B=\Zd_{2m}$: the $2m$ diagonals
 at level $j$ are exactly the $2m$ diagonals of that level, each once.  The remaining level,
 $j=m$, is automatic: the $m$ strip diagonals at position $m-2$ are $m$ distinct diameters
 (the family is edge-disjoint) and there are exactly $m$ diameters.  So every diagonal of
@@ -509,13 +514,13 @@ $P_{2m}$ is used exactly once and $\{T_u\}$ is a resolution.
 
 \emph{($\Rightarrow$).)}  Suppose $\{T_u\}$ is a resolution.  Then for each
 $i\in\{0,\dots,m-3\}$ the $2m$ starts of the diagonals at level $i+2$ are exactly
-$\Z_{2m}$, so with $A,B$ as in (4), (5),
+$\Zd_{2m}$, so with $A,B$ as in (4), (5),
 \[
-  A\sqcup B=\Z_{2m},\qquad A=\{u-1-L_i\},\quad B=\{u+m-1-\widehat\rho_i\}=A+\delta,
+  A\sqcup B=\Zd_{2m},\qquad A=\{u-1-L_i\},\quad B=\{u+m-1-\widehat\rho_i\}=A+\delta,
 \]
 where $\delta=m+L_i-\widehat\rho_i$ by (6).  Now $A$ is an interval of $m$ consecutive
 residues, and a translate of an interval of $m$ consecutive residues is its complement in
-$\Z_{2m}$ only if the translation is $\equiv m\pmod{2m}$.  Hence
+$\Zd_{2m}$ only if the translation is $\equiv m\pmod{2m}$.  Hence
 $\delta\equiv m\pmod{2m}$, i.e.\ $L_i\equiv\widehat\rho_i\pmod{2m}$, and since
 $0\le L_i,\widehat\rho_i\le i\le m-3$ we get
 \[
@@ -601,8 +606,8 @@ snake), and we verify it exhaustively for $m\le7$; see \cref{sec:experiments}.  
 \emph{not} prove it for general $m$.
 
 What we can say about where a proof would have to go.  Suppose a resolution is given with
-snakes $S_u$ having ear pairs $\{a_u,b_u\}$, the pairs partitioning $\Z_{2m}$.  For each
-level $i\in\{0,\dots,m-3\}$ the $2m$ strip starts must cover $\Z_{2m}$; the starts of
+snakes $S_u$ having ear pairs $\{a_u,b_u\}$, the pairs partitioning $\Zd_{2m}$.  For each
+level $i\in\{0,\dots,m-3\}$ the $2m$ strip starts must cover $\Zd_{2m}$; the starts of
 $S_u$ are $a_u-1-\ell^{(u)}_i$ and $b_u-1-\hat\rho^{(u)}_i$ (by the computation in
 \cref{sec:proofs} with $a_u$ and $b_u$ in place of $u$ and $u+m$).  If $S_u$ were read from
 $b_u$ instead, its word would have the same length and the same number of $\Ri$'s.  The
@@ -679,7 +684,7 @@ first, which is the reason the count is $2^{m-2}$.}
 \Cref{tab:conj} reports, for each $m$, the number of snakes of $P_{2m}$, the number with
 non-antipodal ears, and the outcome of testing, for every such non-antipodal snake $S$,
 whether $S$ extends to a resolution.  The extension question is the exact-cover problem
-``partition $\D_{2m}\setminus S$ into $m-1$ snakes'', i.e.\ an integer program with
+``partition $\diags_{2m}\setminus S$ into $m-1$ snakes'', i.e.\ an integer program with
 $\sum_{T\ni d}y_T=1$ for each remaining diagonal $d$ and $y_T\in\{0,1\}$, solved by HiGHS.
 Positive answers are re-validated independently by extracting the witness and re-checking
 that it is a partition; no positive answer occurs.  For $m\le5$ the total number of
@@ -822,25 +827,32 @@ OEIS~A000108, Catalan numbers.
 \section{Explicit resolutions of small polygons}\label{app:examples}
 
 For $n=6$ the two resolutions (words $\Li\Ri$ and $\Ri\Li$) are
+{\small
 \[
   \{\{(1,3),(1,4)\},\;\{(0,2),(2,4)\},\;\{(0,3),(3,5)\}\}
-  \quad\text{and}\quad
+\]
+\[
   \{\{(1,4),(2,4)\},\;\{(0,2),(0,3)\},\;\{(1,3),(1,4)\}\}.
 \]
+}
 For $n=8$ the four words are $\Li\Li\Ri\Ri,\ \Li\Ri\Li\Ri,\ \Ri\Li\Ri\Li,\
 \Ri\Ri\Li\Li$, i.e.\ the first $m-2=2$ letters are free.  The library prints any of them:
 
+{\small
 \begin{verbatim}
 >>> import edd
->>> res = edd.antipodal_resolutions(8)[1]        # word "LRLR"
+>>> res = edd.antipodal_resolutions(8)[1]      # word "LRLR"
 >>> res.word, len(res)
 ('LRLR', 4)
->>> sorted(sorted(T) for T in res)              # doctest: +NORMALIZE_WHITESPACE
-[[(0, 2), (2, 7), (3, 6), (3, 7), (4, 6)], [(0, 3), (0, 4), (1, 3), (4, 7), (5, 7)],
- [(0, 5), (0, 6), (1, 4), (1, 5), (2, 4)], [(1, 6), (1, 7), (2, 5), (2, 6), (3, 5)]]
+>>> for T in res: print(sorted(T))
+[(1, 6), (1, 7), (2, 5), (2, 6), (3, 5)]
+[(0, 2), (2, 7), (3, 6), (3, 7), (4, 6)]
+[(0, 3), (0, 4), (1, 3), (4, 7), (5, 7)]
+[(0, 5), (0, 6), (1, 4), (1, 5), (2, 4)]
 >>> edd.count_resolutions(8), edd.brute_force_count_resolutions(8)
 (4, 4)
 \end{verbatim}
+}
 
 \section{Reproduction}
 
