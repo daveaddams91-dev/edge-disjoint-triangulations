@@ -102,8 +102,9 @@ off by one index.
   what make us confident in the general claim.
 * Counts of $k$-packings are only computed to $n=10$ because the backtracking is
   exponential; the paper does not extrapolate them.
-* The classification is proved for antipodal resolutions.  The number $2^{m-2}$ is claimed
-  for *all* resolutions only for $m\le8$, where Conjecture 5 has been verified.
+* The classification is proved for common-word resolutions, which are automatically
+  antipodal (Corollary 4(i) of the paper).  The number $2^{m-2}$ is claimed for *all*
+  resolutions only for $m\le7$, where Conjecture 5 has been verified.
 * Figures are schematic (regular polygons); no geometric property of the drawing is claimed.
   The combinatorics is independent of the embedding because a convex polygon is determined,
   up to the crossing pattern, by its labelling.

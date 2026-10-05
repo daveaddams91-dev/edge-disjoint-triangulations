@@ -74,7 +74,7 @@ bijection, exact counts of $k$-packings, the $p$-angulation gap) is in
 The paper states precisely where the proof of Conjecture 5 stops; read
 [§7](paper/main.tex) before quoting the count $2^{m-2}$ as a theorem about *all*
 resolutions.  The verification in `results/resolutions.csv` covers $m\le7$; the abstract
-of the manuscript deliberately says "$m\le8$" only where the `--full` run is required.
+of the manuscript is restricted to $m\le7$ accordingly.
 
 ## Repository structure
 
