@@ -100,14 +100,16 @@ def packing_ilp(n: int) -> int:
 def ilp_certificate(n: int, family) -> dict:
     r"""Verify and describe a certificate that ``family`` is a maximum family.
 
-    A certificate consists of the family itself (integrality) together with a *cover*
-    ``x_d >= 0`` of the diagonals such that ``sum_{d in T} x_d >= 1`` for every
-    triangulation ``T``: the LP dual bound then certifies optimality.  Here the cover is
-    always available in closed form: put ``x_d = 1/2`` on the ``n`` short diagonals and
-    ``x_d = 0`` elsewhere.  Because every triangulation meets the short diagonals in at
-    least two members, this gives a dual value of ``n/2``, i.e. the bound of Theorem 1.
+    A certificate consists of the family itself (integrality, edge-disjointness) together
+    with a *dual* weight ``x_d >= 0`` on the diagonals such that ``sum_{d in T} x_d >= 1`` for
+    every triangulation ``T``: the LP dual then certifies optimality.
 
-    Returns a dictionary describing the verified certificate.
+    The available dual solution is always the same: put ``x_d = 1/t`` on the short diagonals
+    and ``0`` elsewhere, where ``t`` is the smallest number of short diagonals that any
+    triangulation of ``P_n`` uses.  By the two-ears lemma ``t >= 2`` for ``n >= 5``, so for
+    ``n >= 5`` this gives the dual value ``n/2``, i.e.\ the bound of Theorem 1.  (For ``n = 4``
+    each triangulation contains a single short diagonal, so ``t = 1`` and the dual value is
+    ``2 = n/2`` again.)
     """
     family = tuple(frozenset(T) for T in family)
     D = set(diagonals(n))
@@ -119,16 +121,19 @@ def ilp_certificate(n: int, family) -> dict:
         if seen & set(T):
             raise ValueError("family is not edge-disjoint")
         seen |= set(T)
-    dual = 0.5 * len(S)
+    t = min(len(T & S) for T in triangulations(n))
+    if t < 1:
+        raise AssertionError("every triangulation must use a short diagonal")
+    dual = len(S) / t
     primal = len(family)
-    worst = min(len(T & S) for T in triangulations(n))
     return {
         "n": n,
         "primal": primal,
         "dual": dual,
+        "dual_weight_on_short_diagonals": 1.0 / t,
         "optimal": primal == round(dual),
         "bound": packing_upper_bound(n),
-        "min_ears_over_all_triangulations": worst,
+        "min_short_diagonals_per_triangulation": t,
         "short_diagonals_used": sorted(seen & S),
         "union_covers_all": seen == D,
     }

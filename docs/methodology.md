@@ -30,9 +30,10 @@ The two `cells()` implementations are deliberately different in kind: one walks 
 graph, the other decomposes recursively at a side.  Agreement on ~250 000 triangulations
 ($n\le12$) is a strong consistency check.
 
-## 3. The Conjunction-5 check (the main verification effort)
+## 3. The Conjecture-5 check (the main verification effort)
 
-To test "every resolution is antipodal" we do **not** enumerate resolutions (the number is
+To test Conjecture 5 ("every resolution follows a common word, hence is antipodal") we
+do **not** enumerate resolutions (the number is
 not known a priori), and we do not rely on the classification.  Instead, for each snake $S$
 of $P_{2m}$ whose ear pair is not antipodal we ask:
 
@@ -54,7 +55,8 @@ It is solved by HiGHS through `scipy.optimize.milp`.
   status that a solver-independent check would be desirable for.  We therefore *also*
   verify the count independently by exhaustive search for $m\le5$, where brute-force
   enumeration over all families of snakes is feasible (`edd.brute_force_resolutions`), and
-  the two methods agree ($1,2,4,8$ resolutions for $n=4,6,8,10$).
+  the two methods agree ($1,2,4,8$ resolutions for $n=4,6,8,10$), and the counts equal
+$2^{m-2}$.
 
 Cost: 5 404 integer programs for $n=14$, about five minutes; the count of non-antipodal
 snakes grows like $\Theta(n2^{n-5})$, so the check grows by roughly a factor $4$ per two

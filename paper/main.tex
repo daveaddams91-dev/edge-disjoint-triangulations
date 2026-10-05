@@ -49,10 +49,11 @@ by encoding a snake as a lattice path: a snake with prescribed endpoints corresp
 bijectively to a word in $\{\Li,\Ri\}^{n-4}$, the level (cyclic distance) of its
 $i$-th strip diagonal is $\min(i+2,n-i-2)$ independently of that word, and $m$ snakes read
 from one common word and based at the $m$ antipodal pairs $\{u,u+m\}$ partition all
-diagonals if and only if the word is anti-palindromic, $w_i\ne w_{2m-3-i}$.  Consequently
-the antipodal resolutions of $P_{2m}$ are in bijection with $\{0,1\}^{m-2}$: there are
-exactly $2^{m-2}$ of them.  We conjecture that every resolution is antipodal; this is
-verified exhaustively for $m\le 7$ by exact-cover integer programming.  A generalisation to
+diagonals if and only if the word is anti-palindromic, $w_i\ne w_{2m-3-i}$.  A resolution
+whose $m$ snakes follow a common word is automatically antipodal, and conversely the number
+of such resolutions of $P_{2m}$ is exactly $2^{m-2}$, in bijection with $\{0,1\}^{m-2}$.  We
+conjecture that every resolution is of this form; this is verified exhaustively for
+$m\le 7$ by exact-cover integer programming.  A generalisation to
 $p$-angulations shows that the counting bound is sharp only for triangles.  Everything is
 implemented, tested (188 tests) and verified computationally in the accompanying software.
 \end{abstract}
@@ -104,9 +105,10 @@ $P_n$ has exactly $n\,2^{n-5}$ snakes.
 \item[\textbf{T4.}] Let $n=2m\ge 6$ and let $w\in\{\Li,\Ri\}^{2m-4}$ have exactly $m-2$
 letters $\Ri$.  The $m$ snakes based at the antipodal pairs $\{u,u+m\}$ and read from $u$
 partition all diagonals of $P_{2m}$ if and only if $w_i\ne w_{2m-3-i}$ for all
-$1\le i\le m-2$ (\cref{thm:classification}).  Hence the antipodal resolutions of $P_{2m}$
-are in bijection with $\{0,1\}^{m-2}$ and there are exactly $2^{m-2}$ of them
-(\cref{cor:count}).
+$1\le i\le m-2$ (\cref{thm:classification}).  Every resolution whose $m$ snakes follow a
+common word is of this form and is automatically antipodal (\cref{cor:count}(i)), so the
+number of such resolutions is exactly $2^{m-2}$, in bijection with $\{0,1\}^{m-2}$
+(\cref{cor:count}(ii)).
 \item[\textbf{T5.}] Exact values of the number of $k$-packings for $n\le 10$, e.g.\ 
 $2\,436$ pairs and $2\,472$ triples of edge-disjoint triangulations of $P_8$ ($=4$
 quadruples).
@@ -114,8 +116,9 @@ quadruples).
 $(p-2)\mid(n-2)$, and the naive counting bound on edge-disjoint $p$-angulations is
 \emph{not} attained for $p\ge4$ (e.g.\ $4$ instead of $10$ for $P_8$,
 \emph{Proposition~\ref{prop:p-angulations}}).
-\item[\textbf{C1.}] \emph{Conjecture.} Every resolution of $P_{2m}$ is antipodal.  Verified
-exhaustively for $m\le 7$; see \cref{sec:experiments}.
+\item[\textbf{C1.}] \emph{Conjecture.} Every resolution of $P_{2m}$ follows a common word
+(and is therefore antipodal).  Verified exhaustively for $m\le 7$; see
+\cref{sec:experiments}.
 \end{itemize}
 
 \paragraph{What is proved where.}
@@ -175,7 +178,8 @@ vertex.
 A \emph{triangulation} of $P_n$ is a maximal set of pairwise non-crossing diagonals; it
 consists of $n-3$ diagonals and $n-2$ triangles.  The \emph{dual graph} of a triangulation
 has one vertex per triangle and one edge per diagonal of the triangulation, joining the two
-triangles it separates; it is a tree on $n-2$ vertices.
+triangles it separates; it is connected (one can walk from any triangle to any other across
+diagonals) and has $n-3$ edges on $n-2$ vertices, hence it is a tree.
 \end{definition}
 
 \begin{definition}
@@ -218,10 +222,11 @@ is
 \end{theorem}
 
 \begin{proof}
-\emph{Upper bound.}  Let $\mathcal{T}$ be an edge-disjoint family of $k$ triangulations of
-$P_n$.  By \cref{lem:ears} each $T\in\mathcal{T}$ contains at least two short diagonals.
-Distinct members of $\mathcal{T}$ use disjoint sets of short diagonals, and there are $n$ of
-them, so $2k\le n$, i.e.\ $k\le\lfloor n/2\rfloor$.
+\emph{Upper bound.}  Assume $n\ge5$ (for $n=4$ the bound $k\le2$ is trivial, $P_4$ having
+exactly two triangulations).  Let $\mathcal{T}$ be an edge-disjoint family of $k$
+triangulations of $P_n$.  By \cref{lem:ears} each $T\in\mathcal{T}$ contains at least two
+short diagonals.  Distinct members of $\mathcal{T}$ use disjoint sets of short diagonals, and
+there are $n$ of them, so $2k\le n$, i.e.\ $k\le\lfloor n/2\rfloor$.
 
 \emph{Sharpness, $n=2m$.}  Let $w_0=\Ri^{m-2}\Li^{m-2}$ and, for $u\in\Z_m$, let $T_u$ be
 the snake of $P_{2m}$ whose endpoints are $u$ and $u+m$ and whose word is $w_0$ (it exists
@@ -237,12 +242,13 @@ triangulation of $P_{2m-1}$ as soon as $d_T(x)\le1$.  The snake $T_u$ of $w_0$ i
 of the fan at $u-1$ (the diagonals $(u-1,u+1),\dots,(u-1,u+m-1)$) and the fan at
 $u-1+m$ (the diagonals $(u-1+m,u+m+1),\dots,(u-1+m,u+2m-2)$), so
 \[
-  d_{T_u}(2m-1)=\begin{cases}m-1,&u=0,\\ 0,&1\le u\le m-1,\end{cases}
+  d_{T_u}(2m-1)=\begin{cases}m-1,&u=0,\\ 1,&1\le u\le m-2,\\ 0,&u=m-1,\end{cases}
 \]
-because $2m-1\notin\{u+1,\dots,u+m-1\}\cup\{u+m+1,\dots,u+2m-2\}$ whenever
-$1\le u\le m-1$.  Hence $T_1,\dots,T_{m-1}$ each become a triangulation of $P_{2m-1}$, and
-they remain pairwise edge-disjoint because they were.  This gives an $(m-1)$-packing.
-For $n=4$ the two triangulations of the square are edge-disjoint.
+the first line because $u-1=2m-1$ is the hub of the first fan, and the second because
+$u+m+1\le 2m-1\le u+2m-2$ holds exactly when $1\le u\le m-2$.  In particular
+$d_{T_u}(2m-1)\le1$ for every $u\ne0$, so $T_1,\dots,T_{m-1}$ each become a triangulation of
+$P_{2m-1}$, and they remain pairwise edge-disjoint because they were.  This gives an
+$(m-1)$-packing.  For $n=4$ the two triangulations of the square are edge-disjoint.
 \end{proof}
 
 \begin{lemma}[\label{lem:delete}]
@@ -337,7 +343,7 @@ disjoint sets of the $n$ available short diagonals.
 
 \section{Main results}
 
-\subsection{The classification of antipodal resolutions}
+\subsection{Classification of the common-word resolutions}
 
 \begin{theorem}[\label{thm:classification}]
 Let $n=2m\ge6$ and let $w\in\{\Li,\Ri\}^{2m-4}$ have exactly $m-2$ letters $\Ri$.  For
@@ -351,25 +357,55 @@ $w$ (which exists and is unique by \cref{lem:strip}).  Then
 \end{theorem}
 
 \begin{corollary}[\label{cor:count}]
-For $m\ge2$, $P_{2m}$ has exactly $2^{m-2}$ antipodal resolutions, and the map
+\begin{enumerate}[(i)] Every resolution of $P_{2m}$ whose $m$ snakes follow a \emph{common
+word} (each read from one of its ear vertices) is antipodal, and is of the form of
+\cref{thm:classification}.
+\item[$(ii)$] For $m\ge2$ there are exactly $2^{m-2}$ such resolutions, and
 $w\mapsto\{T_u\}_{u\in\Z_m}$ is a bijection from the set of anti-palindromic words
-$w\in\{\Li,\Ri\}^{2m-4}$ to the set of antipodal resolutions of $P_{2m}$.  Equivalently,
-the antipodal resolutions of $P_{2m}$ are in bijection with $\{0,1\}^{m-2}$, the free first
-half of the word.
+$w\in\{\Li,\Ri\}^{2m-4}$ onto them.  Equivalently they are in bijection with
+$\{0,1\}^{m-2}$, the free first half of the word.
+\end{enumerate}
 \end{corollary}
 
 \begin{proof}
-By (2) the antipodal resolutions are exactly those produced by anti-palindromic words.
-Condition (2) forces one letter of each pair $(i,\,2m-3-i)$, $1\le i\le m-2$, so the first
-$m-2$ letters determine the rest; conversely any choice of the first $m-2$ letters extends
-to exactly one word satisfying (2), and that word automatically has $m-2$ letters $\Ri$ and
-$m-2$ letters $\Li$.  Distinct words give distinct resolutions because the word is
-recovered from the resolution (\cref{cor:recover}).  Hence the count is $2^{m-2}$.
+(i) Let $\mathcal{T}$ be a resolution all of whose snakes follow the common word $w$, and put
+$b=\#\Ri(w)$ and $k=b+2$.  By \cref{lem:strip}(i) every ear pair of $\mathcal{T}$ then has
+cyclic length $k$, and by \cref{prop:structure}(iii) these $m$ pairs partition $\Z_{2m}$.
+Write $\ell_i$ for the number of $\Li$'s among the first $i$ letters of $w$ and
+$\widehat\rho_i$ for the number of $\Ri$'s among the last $i$; both are independent of the
+snake because $w$ is common.  For $i\in\{0,\dots,m-3\}$ with $j=i+2\le m-1$, the computation
+of \cref{sec:proofs} (with $u$ ranging over the $m$ arc-start vertices rather than over
+$\Z_m$) shows that the $2m$ starts of the diagonals at level $j$ are
+\[
+  A=\{u-1-\ell_i\},\qquad B=\{u+k-1-\widehat\rho_i\}=A+\big(k-\widehat\rho_i+\ell_i\big).
+\]
+Since $\mathcal{T}$ is a resolution, $A\sqcup B=\Z_{2m}$.  Now $A$ is a block of $m$
+consecutive residues, and the complement of such a block in $\Z_{2m}$ is its translate by
+$m$; hence
+$k-\widehat\rho_i+\ell_i\equiv m\pmod{2m}$.  Comparing this with the conclusion of
+\cref{sec:proofs} in the ($\Rightarrow$) direction, namely
+$L_i=\widehat\rho_i$ for every $i\le m-3$ (which uses only the level conditions and the
+commonality of the word), we get $k\equiv m\pmod{2m}$.  Since $2\le k\le n-1$ and
+$1\le m\le n/2$, this forces $k=m$: every ear pair is antipodal, and \cref{lem:strip}(i)
+then gives $\#\Ri(w)=m-2$, so $\mathcal{T}$ is precisely the family of
+\cref{thm:classification} for $w$.
+(For $m\le3$ there is no admissible level $i$; $m=2$ gives $\mathcal{T}$ the two
+triangulations of $P_4$ and $m=3$ follows from \cref{lem:strip}(i) and
+\cref{prop:structure}(iii): the three pairs of length $k$ partitioning six vertices force
+$k=3$.)
+
+(ii) By \cref{thm:classification} the common-word resolutions are exactly those produced by
+anti-palindromic words.  Condition (2) forces one letter of each pair
+$(i,\,2m-3-i)$, $1\le i\le m-2$, so the first $m-2$ letters determine the rest; conversely
+any choice of the first $m-2$ letters extends to exactly one word satisfying (2), and that
+word automatically has $m-2$ letters $\Ri$ and $m-2$ letters $\Li$.  Distinct words give
+distinct resolutions because the word is recovered from the resolution
+(\cref{cor:recover}).  Hence the count is $2^{m-2}$.
 \end{proof}
 
 \begin{corollary}[\label{cor:recover}]
 The word of a resolution is determined by the resolution: if $R=\{T_u\}$ is an
-antipodal resolution then the words of all $T_u$ (read from $u$) agree.
+common-word resolution then the words of all $T_u$ (read from $u$) agree.
 \end{corollary}
 
 \begin{proof}
@@ -380,7 +416,7 @@ vertex $u$, the word is recovered by \cref{lem:strip}'s construction, which is i
 \subsection{Structure of extremal families}
 
 \begin{proposition}[\label{prop:structure}]
-Let $n=2m\ge4$.  If $\mathcal{T}$ is an $m$-packing of $P_{2m}$ then:
+Let $n=2m\ge6$.  If $\mathcal{T}$ is an $m$-packing of $P_{2m}$ then:
 \begin{enumerate}[(i)] $\bigcup_{T\in\mathcal{T}}T=\D_{2m}$, i.e.\ $\mathcal{T}$ is a
 resolution;
 \item every $T\in\mathcal{T}$ is a snake with exactly two ears;
@@ -418,26 +454,27 @@ each level $j<m$ (at strip positions $i=j-2$ and $i=n-2-j$) and exactly one diam
 strip position $i=m-2$).
 
 \medskip
-\noindent\textit{Condition \textup{(CP)}.}  Say that $w$ satisfies the \emph{covering
-property} if
+\noindent\textit{Condition \textup{(CP)}.}  Throughout, positions of a word are numbered
+$1,2,\dots,2m-4$.  Say that $w$ satisfies the \emph{covering property} if
 \[
-  w_i \ne w_{n-2-i}\quad\text{for } i=1,\dots,m-2, \tag{CP}
+  w_i \ne w_{n-3-i}\quad\text{for } i=1,\dots,m-2, \tag{CP}
 \]
-i.e.\ the letters in positions $i$ and $n-2-i$ (\emph{1-based}) differ.  This is condition
-(2) written with $n=2m$.
+i.e.\ if the letters in positions $i$ and $n-3-i$ differ; this is condition (2), which
+reads $w_i\ne w_{2m-3-i}$ when written in the theorem statement.
 
 \medskip
 \noindent\textit{Key observation.}  Assume (CP) and fix $i$ with $0\le i\le m-3$; put
 $c=L_i$ and, for $t\in\{1,\dots,m-2\}$, let $\rho_t$ be the indicator that the letter in
-position $n-2-t$ (1-based) is $\Ri$.  Then
+position $n-3-t$ is $\Ri$.  Then
 \[
   \rho_t=1-\ell_t,\qquad
   L_i=\sum_{t\le i}\ell_t,\qquad
   \widehat{\rho}_i:=\#\{\Ri\text{ among the last } i \text{ letters}\}
      =\sum_{t\le i}\rho_t=i-L_i , \tag{3}
 \]
-because the last $i$ positions are exactly $\{n-2-t:1\le t\le i\}$ (as $i\le m-3$ ensures
-$n-2-i\ge m-1$).  In particular $\widehat\rho_i=L_i$, and more generally
+because the last $i$ positions are exactly $\{n-3-t:1\le t\le i\}$ (as $i\le m-3$ ensures
+$n-3-i\ge m$), i.e.\ they are precisely the partners of the first $i$ positions under
+(CP).  In particular $\widehat\rho_i=L_i$, and more generally
 $L_{i'}-L_i=\widehat\rho_{i'}-\widehat\rho_i$ for $i\le i'\le m-3$: the number of $\Li$'s
 among the first $i'$ letters equals the number of $\Li$'s among the last $i'$ letters.
 
@@ -485,7 +522,7 @@ $0\le L_i,\widehat\rho_i\le i\le m-3$ we get
   L_i=\widehat\rho_i\qquad(0\le i\le m-3). \tag{7}
 \]
 Taking consecutive differences in (7), for $1\le i\le m-3$ we obtain
-$\ell_i=\rho_i$, i.e.\ the letters in positions $i$ and $n-2-i$ of $w$ differ.  Finally,
+$\ell_i=\rho_i$, i.e.\ the letters in positions $i$ and $n-3-i$ of $w$ differ.  Finally,
 $w$ has $m-2$ letters $\Li$, and the $m-3$ pairs just found already account for $m-3$ of
 them, so the two remaining positions, $m-2$ and $m-1$ (1-based), contain exactly one
 letter $\Li$; hence their letters differ as well.  This is (CP), i.e.\ (2).
@@ -546,20 +583,22 @@ truth, and for $p\ge4$ no analogous certificate is available.  We do not determi
 optimum for $p\ge4$ in general.
 \end{remark}
 
-\subsection{Conjecture C1: are all resolutions antipodal?}
+\subsection{Conjecture C1: do all resolutions follow a common word?}
 
 \begin{conjecture}
-Every resolution of $P_{2m}$ is antipodal: all of its $m$ snakes have their two ear
-vertices at cyclic distance $m$.
+Every resolution of $P_{2m}$ follows a common word: there is a word
+$w\in\{\Li,\Ri\}^{2m-4}$ such that all $m$ of its snakes, read from their clockwise-first
+ear vertices, follow $w$.  In particular (by \cref{cor:count}(i)) every resolution is
+antipodal.
 \end{conjecture}
 
-If C1 holds, then by \cref{prop:structure} and \cref{thm:classification} the number of
-resolutions of $P_{2m}$ is exactly $2^{m-2}$, and the classification in
-\cref{thm:classification} is complete.  We can prove Conjecture C1 for $m=3$ ($P_6$: the
-only alternative ear configuration would put the two ears of a snake at cyclic distance
-$2$, which forces a fan, and a fan uses all diagonals at a single vertex so cannot be a
-member of a resolution), and we verify it exhaustively for $m\le8$; see
-\cref{sec:experiments}.  We do \emph{not} prove it for general $m$.
+If C1 holds, then by \cref{cor:count} the number of resolutions of $P_{2m}$ is exactly
+$2^{m-2}$ and the classification in \cref{thm:classification} is complete.  We can prove
+Conjecture C1 for $m=3$ ($P_6$: by \cref{prop:structure}(iii) the three ear pairs partition
+the six vertices, and a pair at cyclic distance $2$ forces the snake to be a fan, whose
+$n-3$ diagonals all meet one vertex and which therefore cannot coexist with another
+snake), and we verify it exhaustively for $m\le7$; see \cref{sec:experiments}.  We do
+\emph{not} prove it for general $m$.
 
 What we can say about where a proof would have to go.  Suppose a resolution is given with
 snakes $S_u$ having ear pairs $\{a_u,b_u\}$, the pairs partitioning $\Z_{2m}$.  For each
@@ -612,9 +651,9 @@ $n$ & \#triangulations & \#snakes & $M(n)$ & \#resolutions & $k{=}2$ & $k{=}3$ &
 12 & 16796   & 1536 & 6 & 16 & \multicolumn{4}{c}{not computed (cost)}\\
 \bottomrule
 \end{tabular}
-\caption{Exact small cases.  \#resolutions counts antipodal resolutions (\cref{cor:count}),
-which by \cref{sec:limits} equals the total number of resolutions for $n\le14$ because
-Conjecture~C1 is verified there; the $k$-packings column is exact.}
+\caption{Exact small cases.  \#resolutions counts the common-word resolutions
+(\cref{cor:count}(ii)), which by \cref{sec:limits} equals the total number of resolutions
+for $n\le14$ because Conjecture~C1 is verified there; the $k$-packings column is exact.}
 \label{tab:small}
 \end{table}
 
@@ -662,7 +701,7 @@ $m$ & $n$ & \#snakes & \#non-antipodal snakes & resolutions & brute force agrees
 \end{tabular}
 \caption{Verification of Conjecture~C1: no snake with non-antipodal ears extends to a
 resolution, for every $m\le7$.  The column ``resolutions'' is $2^{m-2}$ by
-\cref{cor:count}.}
+\cref{cor:count}(ii).}
 \label{tab:conj}
 \end{table}
 
@@ -741,14 +780,15 @@ almost-complete positive sequence in a rank-$2$ cluster algebra.
 
 We determined the maximum number of pairwise edge-disjoint triangulations of a convex
 polygon to be $\lfloor n/2\rfloor$, proved that for even $n$ every extremal family is a
-partition of all diagonals into snakes with distinct antipodal ear pairs, and classified the
-antipodal resolutions completely: they are in bijection with $\{$binary words of length
-$m-2\}$, so there are exactly $2^{m-2}$ of them for $P_{2m}$.  The classification rests on a
+partition of all diagonals into snakes with pairwise disjoint ear pairs, and classified the
+resolutions whose snakes follow a common word --- these are automatically antipodal, and
+there are exactly $2^{m-2}$ of them for $P_{2m}$, in bijection with binary words of length
+$m-2$.  The classification rests on a
 new and useful encoding of snakes as lattice paths, which also yields the count
 $n\,2^{n-5}$ of snakes and makes the level structure of a snake visible.  Exhaustive
-computation verifies that the classification is complete for $m\le7$ (polygons up to
-$P_{14}$); we conjecture the remaining case and locate precisely the step of the proof that
-fails.
+computation verifies that every resolution of $P_{2m}$ follows a common word for $m\le7$
+(polygons up to $P_{14}$); we conjecture the remaining case and locate precisely the step of
+the proof that fails.
 
 \begin{thebibliography}{9}
 \bibitem{huangfu2018}

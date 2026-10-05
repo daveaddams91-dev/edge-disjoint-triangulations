@@ -45,13 +45,16 @@ def test_ilp_agrees_with_the_theorem(n: int) -> None:
     assert edd.packing_ilp(n) == n // 2
 
 
-@pytest.mark.parametrize("n", (6, 8, 10))
+@pytest.mark.parametrize("n", (4, 6, 8, 10, 12))
 def test_certificate(n: int) -> None:
     cert = edd.ilp_certificate(n, edd.packing_witness(n))
     assert cert["primal"] == n // 2
-    assert cert["dual"] == n / 2
+    assert cert["dual"] == pytest.approx(n / 2)
     assert cert["optimal"]
-    assert cert["min_ears_over_all_triangulations"] >= 2
+    assert cert["union_covers_all"] or n % 2 == 1
+    if n >= 5:
+        assert cert["min_short_diagonals_per_triangulation"] >= 2
+        assert cert["dual_weight_on_short_diagonals"] == pytest.approx(0.5)
 
 
 @pytest.mark.parametrize("n", (5, 6, 7, 8))

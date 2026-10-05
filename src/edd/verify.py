@@ -1,4 +1,4 @@
-r"""Exhaustive verification: resolution counts and Conjecture 1.
+r"""Exhaustive verification: resolution counts and Conjecture 5.
 
 Three independent checks are provided.
 
@@ -9,13 +9,14 @@ Three independent checks are provided.
     and is feasible up to ``n = 10`` (about a second).
 
 ``count_resolutions(n)``
-    The number of antipodal resolutions of ``P_n``, i.e. ``2^(n/2-2)`` (Theorem 3).  This
-    equals the total number of resolutions whenever Conjecture 1 has been verified for
-    ``n``; :func:`verify_completeness` does that verification.
+    The number of common-word (equivalently antipodal, by Corollary 4(i)) resolutions of
+    ``P_n``, i.e. ``2^(n/2-2)`` (Theorem 3 and Corollary 4).  This equals the total number
+    of resolutions whenever Conjecture 5 has been verified for ``n``;
+    :func:`verify_completeness` does that verification.
 
 ``verify_completeness(n)``
-    Conjecture 1 states that every resolution of ``P_{2m}`` is antipodal (all ``m`` snakes
-    have their ears ``m`` apart).  It is verified by checking, for every snake of ``P_n``
+    Conjecture 5 states that every resolution of ``P_{2m}`` follows a common word (and is then
+    automatically antipodal by Corollary 4(i)).  It is verified by checking, for every snake of ``P_n``
     with non-antipodal ears, whether that snake extends to a resolution.  The extension
     question is a set-partitioning integer program (``sum_{T contains d} y_T = 1`` for each
     remaining diagonal) solved by HiGHS; positive answers are validated independently by
@@ -109,7 +110,7 @@ def brute_force_count_resolutions(n: int) -> int:
 def count_resolutions(n: int) -> int:
     r"""Number of *antipodal* resolutions of ``P_n``: ``2^(n/2-2)`` for even ``n >= 4``.
 
-    This equals the total number of resolutions of ``P_n`` as soon as Conjecture 1
+    This equals the total number of resolutions of ``P_n`` as soon as Conjecture 5
     ("every resolution is antipodal") has been verified for that ``n``; see
     :func:`verify_completeness`.  The equality is also checked directly against exhaustive
     search for ``n <= 10`` in the test suite.
@@ -135,7 +136,11 @@ class ResolutionReport:
 
     @property
     def conjecture_holds(self) -> bool:
-        """True iff no snake with non-antipodal ears extends to a resolution of ``P_n``."""
+        """True iff no snake with non-antipodal ears extends to a resolution of ``P_n``.
+
+        If so, every resolution of ``P_n`` is antipodal and hence common-word, so the total
+        number of resolutions equals ``antipodal_resolutions`` (Corollary 4).
+        """
         return self.num_extensions_found == 0
 
     @property
@@ -209,17 +214,18 @@ def extends_to_resolution(T: frozenset, n: int) -> tuple[bool, list]:
 
 
 def verify_completeness(n: int, brute_force: bool = False) -> ResolutionReport:
-    r"""Verify Conjecture 1 ("every resolution of ``P_{2m}`` is antipodal") for ``P_n``.
+    r"""Verify Conjecture 5 ("every resolution of ``P_{2m}`` is common-word") for ``P_n``.
 
     For every snake of ``P_n`` whose ear pair is not antipodal we ask whether the snake
     extends to a resolution (an exact-cover ILP).  If none does, every resolution of
-    ``P_n`` is antipodal and hence, by Theorem 3, there are exactly ``2^(m-2)`` of them.
+    ``P_n`` is antipodal, hence common-word by Corollary 4(i), and by Theorem 3 there are
+    exactly ``2^(m-2)`` of them.
     Set ``brute_force=True`` to additionally cross-check the count by exhaustive search
     (only feasible for ``n <= 10``).
     """
     m = n // 2
     if n < 6 or n % 2 != 0:
-        raise ValueError("Conjecture 1 concerns even n >= 6")
+        raise ValueError("Conjecture 5 concerns even n >= 6")
     snake_list = all_snakes(n)
     report = ResolutionReport(
         n=n,

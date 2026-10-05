@@ -62,7 +62,7 @@ differ" for $i\le m-3$, and the total count of letters settles the last pair.  Q
 
 The condition "letters in positions $i$ and $n-2-i$ differ" for $i=1,\dots,m-2$ forces
 exactly one letter per pair, so the first $m-2$ letters are free: $2^{m-2}$ words, hence
-$2^{m-2}$ antipodal resolutions (Corollary 4).
+$2^{m-2}$ common-word resolutions (Corollary 4).
 
 ## 4. Dead ends and things that did *not* work
 

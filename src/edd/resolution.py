@@ -15,18 +15,18 @@ short diagonals, each of the ``m`` triangulations uses exactly two short diagona
 triangulation has more than two ears.  So *every* extremal family for even ``n`` is a
 resolution, and every resolution consists of snakes.
 
-The antipodal family
---------------------
-A snake is *antipodal* if its two endpoints are at cyclic distance ``m``.  The resolution
-built from an antipodal word (see :func:`edd.snakes.antipodal_words`) has ``m`` antipodal
-snakes, one for each pair ``{u, u+m}``, and these pairs are forced by the fact that the
-``2m`` short diagonals are partitioned two per snake.  Theorem :data:`CLASSIFICATION` says
-that the words producing a resolution are exactly the antipodal ones, of which there are
-``2^{m-2}``.
+The common-word family
+----------------------
+A snake is *antipodal* if its two endpoints are at cyclic distance ``m``.  A resolution is
+*common-word* if all of its snakes, read from their clockwise-first ear vertices, follow one
+word.  Theorem :data:`CLASSIFICATION` says that for a word with ``m-2`` letters R, the ``m``
+antipodal snakes based at the pairs ``{u, u+m}`` partition all diagonals if and only if the
+word is anti-palindromic, and Corollary 4 of the paper shows that every common-word resolution
+is antipodal and that there are exactly ``2^{m-2}`` of them.
 
-:data:`COMPLETENESS_OPEN` records what is *not* proved here: that no resolution with
-non-antipodal ears exists for any ``m``.  That statement is verified exhaustively for
-``m <= 8`` by :mod:`edd.verify` and is stated as Conjecture 1 of the paper.
+:data:`COMPLETENESS_OPEN` records what is *not* proved here: that *every* resolution is
+common-word (hence antipodal).  That statement is verified exhaustively for ``m <= 7`` by
+:mod:`edd.verify` and is Conjecture 5 of the paper.
 """
 
 from __future__ import annotations
@@ -55,16 +55,16 @@ __all__ = [
 
 #: The proved classification statement (see the module docstring).
 CLASSIFICATION = (
-    "For n = 2m >= 6 and any word w in {L,R}^(n-4): the m antipodal snakes "
-    "T_u = snake_from_word(w, u, n), u = 0..m-1, form a resolution of P_n if and only if "
-    "w[i-1] != w[n-2-i] for every 1 <= i <= m-2.  Consequently there are exactly "
-    "2^(m-2) such (antipodal) resolutions."
+    "For n = 2m >= 6 and any word w in {L,R}^(n-4) with m-2 letters R: the m antipodal "
+    "snakes T_u = snake_from_word(w, u, n), u = 0..m-1, form a resolution of P_n if and "
+    "only if w[i-1] != w[n-4-i] for every 1 <= i <= m-2.  Consequently there are exactly "
+    "2^(m-2) common-word resolutions of P_{2m}."
 )
 
-#: What remains open (Conjecture 1 of the paper).
+#: What remains open (Conjecture 5 of the paper).
 COMPLETENESS_OPEN = (
-    "Every resolution of P_{2m} is antipodal (all m snakes have their two ears at "
-    "antipodal vertices).  Verified exhaustively for m <= 8; open in general."
+    "Every resolution of P_{2m} follows a common word (and is therefore antipodal by "
+    "Corollary 4(i)).  Verified exhaustively for m <= 7; open in general."
 )
 
 
@@ -106,13 +106,13 @@ def resolution_from_word(word: str, n: int) -> Resolution:
 
 
 def antipodal_resolutions(n: int) -> tuple[Resolution, ...]:
-    """All antipodal resolutions of ``P_n`` (even ``n >= 4``), one per antipodal word."""
+    """All common-word resolutions of ``P_n`` (even ``n >= 4``), one per antipodal word."""
     return tuple(resolution_from_word(w, n) for w in antipodal_words(n))
 
 
 @lru_cache(maxsize=None)
 def num_antipodal_resolutions(n: int) -> int:
-    """``2^(n/2-2)`` for even ``n >= 4``: the number of antipodal resolutions of ``P_n``."""
+    """``2^(n/2-2)`` for even ``n >= 4``: the number of common-word resolutions of ``P_n``."""
     if n < 4 or n % 2 != 0:
         raise ValueError("resolutions are defined for even n >= 4")
     return 2 ** (n // 2 - 2)

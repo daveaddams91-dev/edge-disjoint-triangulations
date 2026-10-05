@@ -49,7 +49,7 @@ honestly, including its limits.  All searches were run in October 2026.
 > We did not find a prior result establishing:
 > * the packing number $M(n)=\lfloor n/2\rfloor$ for pairwise edge-disjoint triangulations of a convex polygon;
 > * the statement that for even $n=2m$ every $m$-packing is a partition of all diagonals into snakes with distinct ear pairs;
-> * the classification of antipodal resolutions, or the count $2^{m-2}$.
+> * the classification of the common-word (equi-eared) resolutions, or the count $2^{m-2}$.
 
 We do **not** claim priority, and we make no claim that any of the underlying objects (ears,
 snakes, triangulations, $p$-angulations, Catalan/Schröder numbers) are new.  The honest

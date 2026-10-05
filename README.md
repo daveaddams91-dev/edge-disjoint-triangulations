@@ -23,8 +23,9 @@ $$\boxed{\;M(n)=\Big\lfloor \tfrac n2\Big\rfloor \quad\text{for every } n\ge 4\;
 Moreover, for even $n=2m$ the extremal question is rigid: every $m$-packing is a
 **resolution** — a partition of *all* $n(n-3)/2$ diagonals into $m$ **snakes** (triangulations
 with no interior triangle) whose $m$ pairs of ears partition the vertex set — and the
-antipodal resolutions are in bijection with binary words of length $m-2$. There are exactly
-$2^{m-2}$ of them.
+resolutions whose $m$ snakes follow a common word (these are automatically *antipodal*, each
+snake's ears being $m$ apart) are in bijection with binary words of length $m-2$. There are
+exactly $2^{m-2}$ of them.
 
 ## Why this is interesting
 
@@ -37,7 +38,8 @@ $2^{m-2}$ of them.
   the classification possible.
 * Encoding a snake as a lattice path (a word in `{L,R}`) makes the whole classification a
   **single anti-palindromicity condition**, and immediately yields the count $n\,2^{n-5}$ of
-  snakes as a by-product.
+  snakes as a by-product. A common-word resolution turns out to be automatically
+  antipodal, which is what closes the loop between the combinatorics and the geometry.
 * The answer $2^{m-2}$ is exponentially small compared with the $n\,2^{n-5}$ snakes and the
   $C_{n-2}$ triangulations, and its structure is completely transparent (see figure 2).
 
@@ -49,8 +51,9 @@ $2^{m-2}$ of them.
 > $\{T_u\}$ is a resolution of $P_{2m}$ **iff** $w_i\neq w_{2m-3-i}$ for all
 > $1\le i\le m-2$.
 >
-> **Corollary.** $P_{2m}$ has exactly $2^{m-2}$ antipodal resolutions, in bijection with
-> the free first half of the word.
+> **Corollary.** Every resolution whose snakes follow a common word is antipodal and is of
+> this form; and there are exactly $2^{m-2}$ such resolutions, in bijection with the free
+> first half of the word.
 
 The full statement list (packing number, structure of extremal families, the snake/word
 bijection, exact counts of $k$-packings, the $p$-angulation gap) is in
@@ -63,9 +66,9 @@ bijection, exact counts of $k$-packings, the $p$-angulation gap) is in
 | $M(n)=\lfloor n/2\rfloor$ for all $n\ge4$ | **proved** (Theorem 1) |
 | every $m$-packing of $P_{2m}$ is a resolution into snakes | **proved** (Proposition 2) |
 | snake ↔ word bijection; level of the $i$-th strip diagonal | **proved** (Lemma 3) |
-| antipodal resolutions ↔ $\{0,1\}^{m-2}$, exactly $2^{m-2}$ | **proved** (Theorem 3, Cor. 4) |
+| common-word resolutions ↔ $\{0,1\}^{m-2}$, exactly $2^{m-2}$ | **proved** (Theorem 3, Cor. 4) |
 | exact counts of $k$-packings for $n\le10$ | **computed exactly** |
-| every resolution is antipodal | **Conjecture 5 — verified exhaustively for $m\le7$ ($n\le14$), open in general** |
+| every resolution follows a common word | **Conjecture 5 — verified exhaustively for $m\le7$ ($n\le14$), open in general** |
 | optimum for edge-disjoint $p$-angulations, $p\ge4$ | **open** (exact values for $n\le10$) |
 
 The paper states precisely where the proof of Conjecture 5 stops; read
@@ -146,7 +149,7 @@ prior statement of $M(n)$, of the structure theorem, or of the classification. T
 claim is therefore:
 
 > *We did not find a prior result establishing the packing number, the structure theorem, or
-> the classification of antipodal resolutions.*
+> the classification of common-word resolutions.*
 
 We do not claim priority, and we do not claim that the objects involved (ears, snakes,
 triangulations of convex polygons, $p$-angulations) are new; only the results above.
