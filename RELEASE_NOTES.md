@@ -59,7 +59,7 @@ general; §7 of the paper localises exactly the step of the argument that fails.
   independent planar face-tracing routine.
 * Exact integer programs for the packing number and for the completeness check, with an
   explicit LP-dual certificate of the bound.
-* **188 unit tests** and a **43-check falsification suite** (`falsification/`) that actively
+* **190 unit tests** and a **43-check falsification suite** (`falsification/`) that actively
   tries to refute every theorem, including a search over all words and all ear-pairings for a
   counterexample to Corollary 4(i). All checks pass.
 * Five figures, each answering a specific mathematical question.
@@ -68,7 +68,7 @@ general; §7 of the paper localises exactly the step of the argument that fails.
 
 ```bash
 pip install -e .
-python -m pytest tests -q                    # 188 tests
+python -m pytest tests -q                    # 190 tests
 python falsification/run_falsification.py    # 43 adversarial checks
 python experiments/run_all.py                # regenerates results/ and figures/
 ```

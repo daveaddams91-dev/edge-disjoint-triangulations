@@ -38,7 +38,7 @@ All notable changes to this project are documented here.  The format follows
 - `edd.packing` — packing number, witnesses for even and odd $n$, ILP with LP-dual
   certificates, exact counting of $k$-packings.
 - `edd.verify` — exhaustive resolution counting and the Conjecture 5 exact-cover check.
-- 188 tests; five experiments; five figures; manuscript in `paper/main.tex`.
+- 190 tests; five experiments; five figures; manuscript in `paper/main.tex`.
 
 ### Fixed during development
 

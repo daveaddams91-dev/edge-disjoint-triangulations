@@ -4,9 +4,8 @@
 share a diagonal?  Exactly $\lfloor n/2\rfloor$ — and for even $n$ the extremal families can
 be classified completely.**
 
-[![tests](https://img.shields.io/badge/tests-190%20passing-brightgreen)](#reproducing-results)
-[![python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
-[![license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
+Tests: 190 unit tests + 43 adversarial falsification checks (no CI badge: run them yourself,
+see [Reproducing results](#reproducing-results)). Requires Python 3.10+. Licence: MIT.
 
 ---
 
@@ -86,7 +85,7 @@ src/edd/                 the library
   resolution.py          resolutions, the classification, level conditions
   packing.py             packing number, witnesses (even and odd), ILP, certificates, counting
   verify.py              exhaustive resolution counting and the Conjecture 5 check
-tests/                   188 tests (definitions, lemmas, theorems, edge cases, regressions)
+tests/                   190 tests (definitions, lemmas, theorems, edge cases, regressions)
 falsification/            a suite that actively tries to refute every theorem
 experiments/             run_all.py + four experiments + figure generation
 results/                 CSV/JSON outputs of the experiments (committed)
@@ -100,7 +99,7 @@ examples/                a runnable tour of the library
 
 ```bash
 pip install -e .
-python -m pytest tests -q                    # 188 tests, ~2 minutes
+python -m pytest tests -q                    # 190 tests, ~2 minutes
 python falsification/run_falsification.py     # 43 adversarial checks, ~5 minutes
 python experiments/run_all.py                # regenerates results/ and figures/, ~10 minutes
 python experiments/run_all.py --full         # adds the n = 16 completeness check (hours)

@@ -60,7 +60,7 @@ of such resolutions of $P_{2m}$ is exactly $2^{m-2}$, in bijection with $\{0,1\}
 conjecture that every resolution is of this form; this is verified exhaustively for
 $m\le 7$ by exact-cover integer programming.  A generalisation to
 $p$-angulations shows that the counting bound is sharp only for triangles.  Everything is
-implemented, tested (188 tests) and verified computationally in the accompanying software.
+implemented, tested (190 tests) and verified computationally in the accompanying software.
 \end{abstract}
 
 \section{Introduction}
@@ -858,7 +858,7 @@ For $n=8$ the four words are $\Li\Li\Ri\Ri,\ \Li\Ri\Li\Ri,\ \Ri\Li\Ri\Li,\
 
 \begin{verbatim}
 pip install -e .
-python -m pytest tests -q                    # 188 tests
+python -m pytest tests -q                    # 190 tests
 python falsification/run_falsification.py    # 43 adversarial checks
 python experiments/run_all.py                # regenerates results/ and figures/
 \end{verbatim}
