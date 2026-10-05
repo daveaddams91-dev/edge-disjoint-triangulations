@@ -1,0 +1,69 @@
+{
+  "reports": [
+    {
+      "antipodal_resolutions": 2,
+      "brute_force_checked": true,
+      "brute_force_count": 2,
+      "conjecture_holds": true,
+      "m": 3,
+      "n": 6,
+      "num_extensions_found": 0,
+      "num_non_antipodal_snakes": 6,
+      "num_snakes": 12,
+      "seconds": 0.01,
+      "total_resolutions": 2
+    },
+    {
+      "antipodal_resolutions": 4,
+      "brute_force_checked": true,
+      "brute_force_count": 4,
+      "conjecture_holds": true,
+      "m": 4,
+      "n": 8,
+      "num_extensions_found": 0,
+      "num_non_antipodal_snakes": 40,
+      "num_snakes": 64,
+      "seconds": 0.09,
+      "total_resolutions": 4
+    },
+    {
+      "antipodal_resolutions": 8,
+      "brute_force_checked": true,
+      "brute_force_count": 8,
+      "conjecture_holds": true,
+      "m": 5,
+      "n": 10,
+      "num_extensions_found": 0,
+      "num_non_antipodal_snakes": 220,
+      "num_snakes": 320,
+      "seconds": 5.29,
+      "total_resolutions": 8
+    },
+    {
+      "antipodal_resolutions": 16,
+      "brute_force_checked": false,
+      "brute_force_count": -1,
+      "conjecture_holds": true,
+      "m": 6,
+      "n": 12,
+      "num_extensions_found": 0,
+      "num_non_antipodal_snakes": 1116,
+      "num_snakes": 1536,
+      "seconds": 14.12,
+      "total_resolutions": 16
+    },
+    {
+      "antipodal_resolutions": 32,
+      "brute_force_checked": false,
+      "brute_force_count": -1,
+      "conjecture_holds": true,
+      "m": 7,
+      "n": 14,
+      "num_extensions_found": 0,
+      "num_non_antipodal_snakes": 5404,
+      "num_snakes": 7168,
+      "seconds": 329.14,
+      "total_resolutions": 32
+    }
+  ]
+}

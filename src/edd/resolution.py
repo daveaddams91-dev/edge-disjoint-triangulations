@@ -231,13 +231,18 @@ def diagonal_starts(res: Resolution, i: int) -> tuple[tuple[Diagonal, ...], tupl
 
 
 def level_condition(res: Resolution, i: int) -> bool:
-    r"""Directly check the level-``i`` covering condition for a word-generated resolution.
+    r"""Directly check the level-``i`` condition for a word-generated resolution.
 
-    ``True`` iff the ``2m`` strip diagonals at positions ``i`` and ``2m-4-i`` are pairwise
-    distinct.
+    For ``i < m-2`` this says that the ``2m`` strip diagonals at positions ``i`` and
+    ``2m-4-i`` are pairwise distinct; for ``i = m-2`` the two positions coincide and the
+    condition says that the ``m`` strip diagonals there are the ``m`` diameters of ``P_n``
+    (pairwise distinct modulo ``m``).
     """
+    m = res.n // 2
     left, right = diagonal_starts(res, i)
-    return len(set(left) | set(right)) == 2 * (res.n // 2)
+    if i == m - 2:
+        return len({d[0] % m for d in left}) == m
+    return len(set(left) | set(right)) == 2 * m
 
 
 def level_condition_holds(word: str, n: int) -> bool:
@@ -249,4 +254,4 @@ def level_condition_holds(word: str, n: int) -> bool:
     m = n // 2
     if m < 3:
         return True
-    return all(word[j - 1] != word[n - 2 - j] for j in range(1, m - 1))
+    return all(word[j - 1] != word[n - 4 - j] for j in range(1, m - 1))

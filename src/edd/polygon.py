@@ -52,10 +52,10 @@ def n_vertices(poly: Iterable[object] | int) -> int:
 
 @lru_cache(maxsize=None)
 def sides(n: int) -> tuple[Diagonal, ...]:
-    """The ``n`` sides of the convex ``n``-gon, in cyclic order starting at side ``(0,1)``."""
+    """The ``n`` sides of the convex ``n``-gon, each stored with the smaller label first."""
     if n < 3:
         raise ValueError("a polygon needs at least 3 vertices")
-    return tuple(sorted({(i, (i + 1) % n) for i in range(n)}))
+    return tuple(sorted({_norm_pair(i, (i + 1) % n) for i in range(n)}))
 
 
 @lru_cache(maxsize=None)
@@ -197,6 +197,67 @@ def interior_triangles(T: Triangulation, n: int) -> tuple[frozenset[int], ...]:
 def _pairs(tri: FrozenSet[int]) -> Iterator[Diagonal]:
     ts = sorted(tri)
     return iter(((ts[0], ts[1]), (ts[0], ts[2]), (ts[1], ts[2])))
+
+
+def cells(D: Iterable[Diagonal], n: int) -> tuple[tuple[int, ...], ...]:
+    r"""The cells of the dissection ``D`` of the convex ``n``-gon.
+
+    Each cell is returned as its vertex tuple in increasing order.  ``D`` must be a
+    non-crossing set of diagonals (it need not be maximal).  For a triangulation the
+    result is ``n-2`` triples; for a ``p``-angulation it is ``(n-2)/(p-2)`` ``p``-tuples.
+
+    Implementation: face tracing of the planar graph ``sides(n) | D`` embedded with the
+    vertices in convex position.  At a vertex ``v`` the counterclockwise order of the
+    neighbours is ``v+1, v+2, ..., n-1, 0, ..., v-1``; keeping the face on the left of a
+    directed edge ``u -> v`` means taking the neighbour of ``v`` that comes immediately
+    *clockwise* after ``u`` in that order.  The single face bounded only by polygon sides
+    is the outer face and is discarded.
+    """
+    S = set(sides(n))
+    E = S | {tuple(sorted(d)) for d in D}
+    if not (E - S):
+        # no diagonals: the only cell is the whole polygon (which coincides with the
+        # outer face, so face tracing cannot separate the two)
+        return (tuple(range(n)),)
+    adj = {
+        v: sorted(
+            (w for w in range(n) if tuple(sorted((v, w))) in E),
+            key=lambda w, v=v: (w - v) % n,
+        )
+        for v in range(n)
+    }
+
+    def step(u: int, v: int) -> tuple[int, int]:
+        lst = adj[v]
+        i = lst.index(u)
+        return v, lst[(i - 1) % len(lst)]
+
+    faces: list[list[Diagonal]] = []
+    seen: set[Diagonal] = set()
+    for a in range(n):
+        for b in adj[a]:
+            if (a, b) in seen:
+                continue
+            face: list[Diagonal] = []
+            u, v = a, b
+            while True:
+                face.append((u, v))
+                seen.add((u, v))
+                u, v = step(u, v)
+                if (u, v) == (a, b):
+                    break
+            faces.append(face)
+
+    out: list[tuple[int, ...]] = []
+    for f in faces:
+        if len(f) == n and all(tuple(sorted(e)) in S for e in f):
+            continue  # the outer face
+        vs: set[int] = set()
+        for a, b in f:
+            vs.add(a)
+            vs.add(b)
+        out.append(tuple(sorted(vs)))
+    return tuple(sorted(out))
 
 
 def is_snake(T: Triangulation, n: int) -> bool:

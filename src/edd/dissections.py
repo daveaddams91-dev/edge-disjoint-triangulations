@@ -49,7 +49,14 @@ def _cells(n: int, max_cell_sides: int | None) -> tuple[tuple[int, ...], ...]:
 
 @lru_cache(maxsize=None)
 def _dissections_upto(n: int, max_cell_sides: int | None) -> tuple[frozenset[Diagonal], ...]:
-    """All dissections of ``P_n`` whose cells have at most ``max_cell_sides`` sides."""
+    """All dissections of ``P_n`` whose cells have at most ``max_cell_sides`` sides.
+
+    Recursion on the cell ``(0, c_1, ..., c_s, n-1)`` that contains the side ``(0, n-1)``:
+    its boundary consists of the ``s+1`` diagonals ``(0, c_1), (c_1, c_2), ...,
+    (c_s, n-1)`` that are diagonals of ``P_n``, and it leaves ``s+1`` regions
+    ``(0..c_1), (c_1..c_2), ..., (c_s..n-1)``, each dissected independently.  This is a
+    bijection between such dissections and (cell, choice of sub-dissection per region).
+    """
     if n <= 2:
         return (frozenset(),)
     if n == 3:
@@ -57,19 +64,28 @@ def _dissections_upto(n: int, max_cell_sides: int | None) -> tuple[frozenset[Dia
     all_d = set(diagonals(n))
     out: set[frozenset[Diagonal]] = set()
     for cell in _cells(n, max_cell_sides):
-        c1, cs = cell[0], cell[-1]
+        verts = (0, *cell, n - 1)
         base: set[Diagonal] = set()
-        prev = 0
-        for c in (*cell, n - 1):
-            if c - prev >= 2 and not (prev == 0 and c == n - 1):
-                base.add((prev, c))
-            prev = c
-        left = _dissections_upto(c1 + 1, max_cell_sides)
-        right = _dissections_upto(n - cs, max_cell_sides)
-        for L in left:
-            for R in right:
-                shifted = {(cs + a, cs + b) for a, b in R}
-                out.add(frozenset((base | set(L) | shifted) & all_d))
+        for a, b in zip(verts, verts[1:]):
+            if b - a >= 2 and not (a == 0 and b == n - 1):
+                base.add((a, b))
+        subs = [
+            _dissections_upto(b - a + 1, max_cell_sides) for a, b in zip(verts, verts[1:])
+        ]
+
+        def combine(idx: int, acc: set[Diagonal], off: int) -> None:
+            if idx == len(subs):
+                out.add(frozenset(acc))
+                return
+            a = verts[idx]
+            for sub in subs[idx]:
+                combine(
+                    idx + 1,
+                    acc | {(a + p, a + q) for p, q in sub},
+                    off,
+                )
+
+        combine(0, set(base), 0)
     return tuple(sorted(out, key=lambda D: (len(D), sorted(D))))
 
 
@@ -94,9 +110,10 @@ def triangulations(n: int) -> tuple[Triangulation, ...]:
 def p_angulations(n: int, p: int) -> tuple[frozenset[Diagonal], ...]:
     """All ``p``-angulations (dissections into ``p``-gons) of the convex ``n``-gon.
 
-    Empty unless ``p`` divides ``n - 2``.
+    Empty unless ``(p - 2)`` divides ``n - 2``: Euler's formula forces the number of cells
+    to be ``(n-2)/(p-2)`` and the number of diagonals to be ``(n-p)/(p-2)``.
     """
-    if p < 3 or (n - 2) % (p - 1) != 0:
+    if p < 3 or n < p or (n - 2) % (p - 2) != 0:
         return ()
     want = p_angulation_diagonals(n, p)
     return tuple(D for D in _dissections_upto(n, p) if len(D) == want)
@@ -106,7 +123,9 @@ def p_angulation_diagonals(n: int, p: int) -> int:
     """Number of diagonals in a ``p``-angulation of the ``n``-gon: ``(n-p)/(p-2)``.
 
     From ``p F = 2 D + n`` (each cell has ``p`` sides; interior diagonals are counted
-    twice, the ``n`` sides once) together with Euler's identity ``F = D + 1``.
+    twice, the ``n`` sides once) together with Euler's identity ``F = D + 1``.  In
+    particular a ``p``-angulation exists only if ``(p-2)`` divides ``n-2``, and then it
+    has ``(n-2)/(p-2)`` cells.
     """
     return (n - p) // (p - 2)
 

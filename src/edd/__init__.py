@@ -20,7 +20,9 @@ Quick start
 from __future__ import annotations
 
 from .polygon import (
+    cells,
     cyclic_dist,
+    delete_vertex,
     diagonal_level,
     diagonals,
     ear_vertices,
@@ -43,6 +45,7 @@ from .dissections import (
 from .snakes import (
     antipodal_resolution,
     antipodal_words,
+    is_resolution_family,
     num_snakes,
     snake_from_word,
     snakes,
@@ -65,13 +68,18 @@ from .resolution import (
     strip_diagonals,
 )
 from .packing import (
+    canonical_word,
     count_all_packs,
     count_k_dissections,
+    even_packing,
     ilp_certificate,
+    is_edge_disjoint_family,
     max_packing,
+    odd_packing,
     packing_feasible,
     packing_ilp,
     packing_upper_bound,
+    packing_witness,
 )
 from .verify import (
     ResolutionReport,
@@ -93,11 +101,13 @@ __all__ = [
     "cyclic_dist",
     "short_diagonals",
     "triangles",
+    "cells",
     "ear_vertices",
     "num_ears",
     "interior_triangles",
     "is_snake",
     "is_non_crossing",
+    "delete_vertex",
     # dissections
     "dissections",
     "triangulations",
@@ -113,6 +123,7 @@ __all__ = [
     "strip_level",
     "antipodal_words",
     "antipodal_resolution",
+    "is_resolution_family",
     # resolutions
     "Resolution",
     "resolution_from_word",
@@ -132,6 +143,11 @@ __all__ = [
     "packing_upper_bound",
     "packing_ilp",
     "packing_feasible",
+    "packing_witness",
+    "canonical_word",
+    "even_packing",
+    "odd_packing",
+    "is_edge_disjoint_family",
     "count_k_dissections",
     "count_all_packs",
     "ilp_certificate",

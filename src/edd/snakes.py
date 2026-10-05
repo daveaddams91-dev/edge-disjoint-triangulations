@@ -120,7 +120,7 @@ def word_from_snake(T: Triangulation, u: int, n: int) -> str:
     letters: list[str] = []
     li = 0
     for i in range(1, n - 3):
-        cand = frozenset(((u - 2 - li) % n, (u + 1 + (i - 1 - li)) % n))
+        cand = tuple(sorted(((u - 2 - li) % n, (u + 1 + (i - 1 - li)) % n)))
         if cand in S:
             letters.append(L)
             li += 1
