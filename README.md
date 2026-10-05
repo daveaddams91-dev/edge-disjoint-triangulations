@@ -173,7 +173,7 @@ See [`docs/literature.md`](docs/literature.md) for the search log.
   author = {{edd contributors}},
   year   = {2026},
   note   = {Manuscript, paper/main.tex; software at
-            https://github.com/daveaddams91-dev/edge-disjoint-triangulations}
+            https://github.com/rajveersinh-is-dev/edge-disjoint-triangulations}
 }
 ```
 
