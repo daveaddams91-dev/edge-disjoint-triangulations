@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 import csv
 import json
-import os
 import time
-from pathlib import Path
+
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "results"
@@ -16,11 +16,25 @@ __all__ = ["ROOT", "RESULTS", "FIGURES", "write_csv", "write_json", "timer", "en
 
 
 def ensure_dirs() -> None:
+    """Ensure dirs.
+    
+    """
     RESULTS.mkdir(exist_ok=True)
     FIGURES.mkdir(exist_ok=True)
 
 
 def write_csv(name: str, fieldnames: list[str], rows: list[dict]) -> Path:
+    """Save csv to file.
+    
+    Args:
+        name:
+        fieldnames:
+        rows:
+    
+    Returns:
+        The computed result
+    
+    """
     ensure_dirs()
     path = RESULTS / name
     with path.open("w", newline="", encoding="utf-8") as fh:
@@ -32,6 +46,16 @@ def write_csv(name: str, fieldnames: list[str], rows: list[dict]) -> Path:
 
 
 def write_json(name: str, payload) -> Path:
+    """Save json to file.
+    
+    Args:
+        name:
+        payload:
+    
+    Returns:
+        The computed result
+    
+    """
     ensure_dirs()
     path = RESULTS / name
     with path.open("w", encoding="utf-8") as fh:
@@ -44,10 +68,22 @@ class timer:
     """Context manager measuring wall-clock seconds in ``.seconds``."""
 
     def __enter__(self):
+        """Enter.
+        
+        Returns:
+            The computed result
+        
+        """
         self.seconds = 0.0
         self._t0 = time.perf_counter()
         return self
 
-    def __exit__(self, *exc):
+    def __exit__(self, *exc) -> bool:
+        """Exit.
+        
+        Returns:
+            bool: Result of type bool
+        
+        """
         self.seconds = time.perf_counter() - self._t0
         return False
