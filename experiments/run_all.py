@@ -19,15 +19,25 @@ seeds need to be set.  Files written:
 
 from __future__ import annotations
 
+from pathlib import Path
 import subprocess
 import sys
 import time
-from pathlib import Path
+
 
 HERE = Path(__file__).resolve().parent
 
 
 def run(script: str, *args: str) -> float:
+    """Worker function for parallel processing.
+    
+    Args:
+        script:
+    
+    Returns:
+        The computed result
+    
+    """
     print(f"\n=== {script} {' '.join(args)} ".ljust(78, "="), flush=True)
     t0 = time.perf_counter()
     subprocess.run([sys.executable, str(HERE / script), *args], check=True, cwd=HERE)
@@ -37,6 +47,9 @@ def run(script: str, *args: str) -> float:
 
 
 def main() -> None:
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     full = "--full" in sys.argv
     n_max_res = "16" if full else "14"
     t0 = time.perf_counter()
