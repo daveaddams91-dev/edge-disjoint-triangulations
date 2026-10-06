@@ -54,6 +54,9 @@ def max_disjoint(n: int, p: int) -> int:
 
 
 def main() -> None:
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     rows = []
     for p in (3, 4, 5, 6):
         n_max = 12 if p == 3 else 10

@@ -13,13 +13,18 @@ Run: ``python experiments/exp_small_cases.py``
 
 from __future__ import annotations
 
-import edd
+
 from common import timer, write_csv
+import edd
+
 
 MAX_COUNT_N = 10  # exact k-dissection counts are computed up to this n
 
 
 def main() -> None:
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     rows = []
     for n in range(4, 17):
         witness = edd.packing_witness(n)

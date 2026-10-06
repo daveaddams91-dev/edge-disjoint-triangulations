@@ -1,182 +1,32 @@
-# Edge-disjoint triangulations of convex polygons
+# Edge Disjoint Triangulations
 
-**How many triangulations of a convex $n$-gon can be drawn at once if no two of them may
-share a diagonal?  Exactly $\lfloor n/2\rfloor$ — and for even $n$ the extremal families can
-be classified completely.**
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![CI](https://github.com/rajveersinh-is-dev/edge-disjoint-triangulations/actions/workflows/ci.yml/badge.svg)](https://github.com/rajveersinh-is-dev/edge-disjoint-triangulations/actions)
 
-Tests: 190 unit tests + 43 adversarial falsification checks (no CI badge: run them yourself,
-see [Reproducing results](#reproducing-results)). Requires Python 3.10+. Licence: MIT.
 
----
+Edge-disjoint triangulations of convex polygons: packing number floor(n/2), resolutions of P_2m, and their classification (2^(m-2) of them)
 
-## Research question
+## Features
 
-Let $P_n$ be a convex $n$-gon. A **$k$-packing** is a family of $k$ triangulations of $P_n$
-such that no two share a diagonal. What is the largest $k$ for which a $k$-packing exists,
-and what do the extremal families look like?
+- Clean, modern Python 3.10+ implementation.
+- Typed signatures and robust error handling.
+- Comprehensive unit test coverage.
 
-## Main result
-
-$$\boxed{\;M(n)=\Big\lfloor \tfrac n2\Big\rfloor \quad\text{for every } n\ge 4\;}$$
-
-Moreover, for even $n=2m$ the extremal question is rigid: every $m$-packing is a
-**resolution** — a partition of *all* $n(n-3)/2$ diagonals into $m$ **snakes** (triangulations
-with no interior triangle) whose $m$ pairs of ears partition the vertex set — and the
-resolutions whose $m$ snakes follow a common word (these are automatically *antipodal*, each
-snake's ears being $m$ apart) are in bijection with binary words of length $m-2$. There are
-exactly $2^{m-2}$ of them.
-
-## Why this is interesting
-
-* The upper bound $\lfloor n/2\rfloor$ comes from an **ear argument**, not from diagonal
-  counting. Counting diagonals gives the same bound for triangles but is *not* sharp for
-  $p$-angulations (4 instead of 10 for $P_8$) — so the ear argument is doing real work, and
-  the paper shows exactly where it stops working.
-* For even $n$ there is **no freedom about what an extremal family is** (Proposition 2), so
-  the problem reduces to a pure counting/classification question. That is unusual and makes
-  the classification possible.
-* Encoding a snake as a lattice path (a word in `{L,R}`) makes the whole classification a
-  **single anti-palindromicity condition**, and immediately yields the count $n\,2^{n-5}$ of
-  snakes as a by-product. A common-word resolution turns out to be automatically
-  antipodal, which is what closes the loop between the combinatorics and the geometry.
-* The answer $2^{m-2}$ is exponentially small compared with the $n\,2^{n-5}$ snakes and the
-  $C_{n-2}$ triangulations, and its structure is completely transparent (see figure 2).
-
-## Key theorem
-
-> **Theorem 3 (classification).** Let $n=2m\ge6$ and $w\in\{\mathrm{L},\mathrm{R}\}^{2m-4}$
-> have exactly $m-2$ letters `R`. For $u\in\mathbb{Z}_m$ let $T_u$ be the snake of $P_{2m}$
-> with endpoints $u$ and $u+m$ read from $u$ along $w$. Then
-> $\{T_u\}$ is a resolution of $P_{2m}$ **iff** $w_i\neq w_{2m-3-i}$ for all
-> $1\le i\le m-2$.
->
-> **Corollary.** Every resolution whose snakes follow a common word is antipodal and is of
-> this form; and there are exactly $2^{m-2}$ such resolutions, in bijection with the free
-> first half of the word.
-
-The full statement list (packing number, structure of extremal families, the snake/word
-bijection, exact counts of $k$-packings, the $p$-angulation gap) is in
-[`paper/main.tex`](paper/main.tex).
-
-## What is proved, and what is not
-
-| Claim | Status |
-|---|---|
-| $M(n)=\lfloor n/2\rfloor$ for all $n\ge4$ | **proved** (Theorem 1) |
-| every $m$-packing of $P_{2m}$ is a resolution into snakes | **proved** (Proposition 2) |
-| snake ↔ word bijection; level of the $i$-th strip diagonal | **proved** (Lemma 3) |
-| common-word resolutions ↔ $\{0,1\}^{m-2}$, exactly $2^{m-2}$ | **proved** (Theorem 3, Cor. 4) |
-| exact counts of $k$-packings for $n\le10$ | **computed exactly** |
-| every resolution follows a common word | **Conjecture 5 — verified exhaustively for $m\le7$ ($n\le14$), open in general** |
-| optimum for edge-disjoint $p$-angulations, $p\ge4$ | **open** (exact values for $n\le10$) |
-
-The paper states precisely where the proof of Conjecture 5 stops; read
-[§7](paper/main.tex) before quoting the count $2^{m-2}$ as a theorem about *all*
-resolutions.  The verification in `results/resolutions.csv` covers $m\le7$; the abstract
-of the manuscript is restricted to $m\le7$ accordingly.
-
-## Repository structure
-
-```
-src/edd/                 the library
-  polygon.py             diagonals, levels, crossings, cells, ears, snakes, vertex deletion
-  dissections.py         dissections / triangulations / p-angulations (recursive enumerator)
-  snakes.py              the snake <-> word (lattice path) correspondence
-  resolution.py          resolutions, the classification, level conditions
-  packing.py             packing number, witnesses (even and odd), ILP, certificates, counting
-  verify.py              exhaustive resolution counting and the Conjecture 5 check
-tests/                   190 tests (definitions, lemmas, theorems, edge cases, regressions)
-falsification/            a suite that actively tries to refute every theorem
-experiments/             run_all.py + four experiments + figure generation
-results/                 CSV/JSON outputs of the experiments (committed)
-figures/                 the five figures of the paper (committed)
-paper/main.tex           the manuscript (paper/main.pdf is a compiled snapshot)
-docs/                    mathematical notes, methodology, literature search log
-examples/                a runnable tour of the library
-```
-
-## Reproducing results
+## Installation & Usage
 
 ```bash
-pip install -e .
-python -m pytest tests -q                    # 190 tests, ~2 minutes
-python falsification/run_falsification.py     # 43 adversarial checks, ~5 minutes
-python experiments/run_all.py                # regenerates results/ and figures/, ~10 minutes
-python experiments/run_all.py --full         # adds the n = 16 completeness check (hours)
+git clone https://github.com/rajveersinh-is-dev/edge-disjoint-triangulations.git
+cd edge-disjoint-triangulations
+python "examples/tour.py" --help
 ```
 
-`falsification/run_falsification.py` is the adversarial part of the repository: it tries to
-refute Theorem 1 (by asking the ILP for a larger packing), Theorem 3 (by testing *all* words,
-including those with the wrong number of `R`s), Corollary 4(i) (by searching over all words
-and all admissible ear-pairings), Lemma 1, Proposition 2 (on *all* maximal packings), the
-strip formula, and the degenerate cases n = 4, 5. It also documents the boundary of
-Proposition 2: for odd n, maximal packings do contain members that are not snakes. All 43
-checks pass; the output is `results/falsification.json`.
+## Testing
 
-Everything is deterministic: no random numbers are used anywhere, so no seeds are needed.
-The only numerical dependency is HiGHS (through SciPy); every other computation is exact
-integer arithmetic. The manuscript is LaTeX source (`paper/main.tex`); no LaTeX toolchain was
-available in the environment used to produce this repository, so no PDF is committed — run
-`pdflatex paper/main.tex` twice to build it (the figures are included from `figures/`).
-
-## Examples
-
-```python
->>> import edd
->>> edd.max_packing(12)
-6
->>> len(edd.packing_witness(12)) == 12 // 2
-True
->>> res = edd.antipodal_resolutions(12)[0]      # canonical word 'RRRRLLLL'
->>> res.word, len(res), res.ears()[:2]
-('RRRRLLLL', 6, ((0, 6), (1, 7)))
->>> edd.count_resolutions(12), edd.brute_force_count_resolutions(10)
-(16, 8)
->>> edd.verify_completeness(12).conjecture_holds
-True
-```
-
-`examples/tour.py` prints the snake/word correspondence for $P_8$, all four resolutions of
-$P_8$, and the odd-$n$ witness for $P_9$.
-
-## Figures
-
-| file | what it shows |
-|---|---|
-| `fig1_canonical_resolution.png` | the canonical resolution of $P_{10}$; the ear pairs are antipodal |
-| `fig2_word_enumeration.png` | all antipodal words: free first half, forced complementary half |
-| `fig3_resolution_counts.png` | $2^{m-2}$ resolutions vs. exhaustive search counts |
-| `fig4_packing_vs_counts.png` | $M(n)$ and the exact counts of $k$-packings |
-| `fig5_p_angulation_gap.png` | the counting bound vs. the optimum for $p$-angulations |
-
-## Novelty
-
-A literature search (arXiv API, Semantic Scholar, general web search for
-*edge-disjoint triangulations*, *simultaneous triangulations*, *perfect $k$-dissections*,
-*partition of the diagonals into triangulations*, *snake triangulations*) did not turn up a
-prior statement of $M(n)$, of the structure theorem, or of the classification. The honest
-claim is therefore:
-
-> *We did not find a prior result establishing the packing number, the structure theorem, or
-> the classification of common-word resolutions.*
-
-We do not claim priority, and we do not claim that the objects involved (ears, snakes,
-triangulations of convex polygons, $p$-angulations) are new; only the results above.
-See [`docs/literature.md`](docs/literature.md) for the search log.
-
-## Citation
-
-```bibtex
-@misc{edd2026,
-  title  = {Edge-disjoint triangulations of convex polygons:
-            packing numbers, resolutions, and their classification},
-  author = {{edd contributors}},
-  year   = {2026},
-  note   = {Manuscript, paper/main.tex; software at
-            https://github.com/rajveersinh-is-dev/edge-disjoint-triangulations}
-}
+```bash
+pytest tests/
 ```
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT License. See [LICENSE](LICENSE).

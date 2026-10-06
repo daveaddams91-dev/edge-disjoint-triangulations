@@ -20,6 +20,8 @@ from math import comb
 
 from .polygon import Diagonal, Triangulation, diagonals, is_non_crossing
 
+
+
 __all__ = [
     "dissections",
     "triangulations",
@@ -66,14 +68,24 @@ def _dissections_upto(n: int, max_cell_sides: int | None) -> tuple[frozenset[Dia
     for cell in _cells(n, max_cell_sides):
         verts = (0, *cell, n - 1)
         base: set[Diagonal] = set()
-        for a, b in zip(verts, verts[1:]):
+        for a, b in zip(verts, verts[1:
+            ]):
             if b - a >= 2 and not (a == 0 and b == n - 1):
                 base.add((a, b))
         subs = [
             _dissections_upto(b - a + 1, max_cell_sides) for a, b in zip(verts, verts[1:])
         ]
 
+        @functools.lru_cache(maxsize=None)
         def combine(idx: int, acc: set[Diagonal], off: int) -> None:
+            """Combine.
+            
+            Args:
+                idx:
+                acc:
+                off:
+            
+            """
             if idx == len(subs):
                 out.add(frozenset(acc))
                 return

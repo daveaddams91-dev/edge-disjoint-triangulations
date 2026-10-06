@@ -22,6 +22,17 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def check(name: str, ok: bool, detail) -> dict:
+    """Check whether the condition holds.
+    
+    Args:
+        name:
+        ok:
+        detail:
+    
+    Returns:
+        dict: Result of type dict
+    
+    """
     return {"check": name, "passed": bool(ok), "detail": detail}
 
 
@@ -116,6 +127,15 @@ def _maximal_packs(n: int, k: int):
     out = []
 
     def rec(start, used, depth, chosen):
+        """Rec.
+        
+        Args:
+            start:
+            used:
+            depth:
+            chosen:
+        
+        """
         if depth == k:
             out.append(tuple(Ts[t] for t in chosen))
             return
@@ -286,6 +306,9 @@ def f9_strip_formula(n_max: int) -> list[dict]:
 
 
 def main() -> None:
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     n_max = int(sys.argv[1]) if len(sys.argv) > 1 else 10
     report: dict = {"n_max": n_max, "checks": []}
     print(f"falsification suite, n_max = {n_max}\n" + "=" * 70)

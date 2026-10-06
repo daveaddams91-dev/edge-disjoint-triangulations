@@ -16,11 +16,16 @@ from __future__ import annotations
 
 import sys
 
-import edd
 from common import timer, write_csv, write_json
+import edd
+
+
 
 
 def main() -> None:
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     n_max = int(sys.argv[1]) if len(sys.argv) > 1 else 14
     rows = []
     reports = []
