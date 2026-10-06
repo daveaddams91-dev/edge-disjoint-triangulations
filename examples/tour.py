@@ -2,16 +2,27 @@
 
 from __future__ import annotations
 
+
 import edd
 
 
+
 def section(title: str) -> None:
+    """Section.
+    
+    Args:
+        title:
+    
+    """
     print("\n" + "=" * 72)
     print(title)
     print("=" * 72)
 
 
 def main() -> None:
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     section("1. The objects")
     n = 8
     print(f"diagonals of P_{n}: {len(edd.diagonals(n))} (n(n-3)/2 = {n * (n - 3) // 2})")
