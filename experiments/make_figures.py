@@ -29,28 +29,46 @@ Run: ``python experiments/make_figures.py``
 
 from __future__ import annotations
 
-import csv
-import math
 from pathlib import Path
+import csv
 
+from common import FIGURES, RESULTS
+import edd
 import matplotlib
-
-matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-import edd
-from common import FIGURES, RESULTS
+
+
+matplotlib.use("Agg")
+
 
 plt.rcParams.update({"figure.dpi": 140, "font.size": 9, "axes.grid": True, "grid.alpha": 0.3})
 
 
 def _circle(n: int, r: float = 1.0):
+    """Circle.
+    
+    Args:
+        n:
+        r (float):
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     ang = 2 * np.pi * np.arange(n) / n + np.pi / 2
     return r * np.cos(ang), r * np.sin(ang)
 
 
 def _draw_polygon(ax, n: int) -> None:
+    """Draw polygon.
+    
+    Args:
+        ax:
+        n:
+    
+    """
     x, y = _circle(n)
     ax.plot(x, y, color="0.25", lw=1.0, zorder=1)
     ax.scatter(x, y, s=8, color="0.25", zorder=3)
@@ -60,6 +78,15 @@ def _draw_polygon(ax, n: int) -> None:
 
 
 def fig1(n: int = 10) -> Path:
+    """Fig1.
+    
+    Args:
+        n (int):
+    
+    Returns:
+        The computed result
+    
+    """
     fig, axes = plt.subplots(1, 2, figsize=(7.0, 3.9))
     res = edd.resolution_from_word(edd.canonical_word(n), n)
     x, y = _circle(n)
@@ -116,6 +143,12 @@ def fig2() -> Path:
 
 
 def fig3() -> Path:
+    """Fig3.
+    
+    Returns:
+        The computed result
+    
+    """
     m = np.arange(3, 9)
     pred = 2.0 ** (m - 2)
     fig, ax = plt.subplots(figsize=(5.2, 3.4))
@@ -136,6 +169,12 @@ def fig3() -> Path:
 
 
 def fig4() -> Path:
+    """Fig4.
+    
+    Returns:
+        The computed result
+    
+    """
     rows = list(csv.DictReader((RESULTS / "small_cases.csv").open(encoding="utf-8")))
     ns = [int(r["n"]) for r in rows]
     fig, ax = plt.subplots(figsize=(6.0, 3.6))
@@ -164,6 +203,12 @@ def fig4() -> Path:
 
 
 def fig5() -> Path:
+    """Fig5.
+    
+    Returns:
+        The computed result
+    
+    """
     rows = list(csv.DictReader((RESULTS / "p_angulations.csv").open(encoding="utf-8")))
     fig, ax = plt.subplots(figsize=(5.6, 3.4))
     for p, col in ((3, "C0"), (4, "C1"), (5, "C2"), (6, "C3")):
@@ -187,6 +232,9 @@ def fig5() -> Path:
 
 
 def main() -> None:
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     FIGURES.mkdir(exist_ok=True)
     for fn in (fig1, fig2, fig3, fig4, fig5):
         p = fn()
